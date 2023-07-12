@@ -9,7 +9,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=${TZ}
       - VERSION=docker
       - PLEX_CLAIM= #optional
     volumes:
@@ -24,7 +24,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=${TZ}
       - WEBUI_PORT=8080
     volumes:
       - ${ROOT}/config/qbittorrent:/config
@@ -41,7 +41,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=${TZ}
     volumes:
       - ${ROOT}/sabnzbd:/config
       - ${ROOT}/downloads:/downloads #optional
