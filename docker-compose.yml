@@ -31,6 +31,7 @@ services:
       - LAN_NETWORK=192.168.29.0/24
       - PUID=1000
       - PGID=1000
+      - INSTALL_PYTHON3=yes
     ports:
       - 8080:8080 # web UI
     restart: unless-stopped
