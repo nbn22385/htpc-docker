@@ -13,27 +13,26 @@ services:
       - VERSION=docker
       - PLEX_CLAIM= #optional
     volumes:
-      - ${ROOT}/config/plex/db:/config
-      - ${ROOT}/downloads:/downloads
-      # - ${ROOT}/downloads:/downloads/movies
+      - ${ROOT}/config/plex:/config
+      - ${ROOT}/downloads:/downloads # qBitTorrent/SABnzbd completed downloads
     restart: unless-stopped
 
-  qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent:latest
-    container_name: qbittorrent
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-      - WEBUI_PORT=8080
+  qbittorrentvpn:
+    image: dyonr/qbittorrentvpn
+    container_name: qbittorrentvpn
+    privileged: true
     volumes:
-      - ${ROOT}/config/qbittorrent:/config
+      - ${ROOT}/config:/config
       - ${ROOT}/downloads:/downloads
       - ${ROOT}/incomplete:/incomplete
+    environment:
+      - VPN_ENABLED=yes
+      - VPN_TYPE=wireguard
+      - LAN_NETWORK=192.168.29.0/24
+      - PUID=1000
+      - PGID=1000
     ports:
-      - 8080:8080 # access the web ui via port 8080
-      - 6881:6881
-      - 6881:6881/udp
+      - 8080:8080 # web UI
     restart: unless-stopped
 
   sabnzbd:
@@ -45,8 +44,9 @@ services:
       - TZ=${TZ}
     volumes:
       - ${ROOT}/config/sabnzbd:/config
-      - ${ROOT}/downloads:/downloads
-      - ${ROOT}/incomplete:/incomplete
+      - ${ROOT}/downloads:/config/Downloads/complete
+      - ${ROOT}/incomplete:/config/Downloads/incomplete
     ports:
-      - 8081:8080 # access the web ui via port 8081
+      - 8081:8080 # web UI
     restart: unless-stopped
+
