@@ -108,3 +108,48 @@ I was able to restore access by running this command after starting services:
 ```bash
 sudo iptables -t mangle -F
 ```
+
+## Additional notes
+
+### Disable laptop suspend when lid is closed
+
+When using a laptop as a server, the system may suspend when the lid is closed.
+To prevent this, make the following modification and restart the computer.
+
+```bash
+sudo vim /etc/systemd/logind.conf
+```
+
+Uncomment and edit the following lines:
+
+```text
+HandleLidSwitch=ignore
+HandleLidSwitchExternalPower=ignore
+```
+
+### qBittorrent customization
+
+#### VueTorrent UI theme
+
+https://github.com/WDaan/VueTorrent#manual
+
+1. Visit the Vuetorrent [Releases](https://github.com/WDaan/VueTorrent/releases) page
+1. Download the latest vuetorrent.zip
+1. Unzip the downloaded file
+1. Point your alternate WebUI location to the vuetorrent folder in qBittorrent settings
+
+#### Email notifications
+
+When a file completes downloading, you can email/SMS yourself. I used the email
+address that T-Mobile provides which is translated into an SMS.
+
+1. Open qBittorrent settings
+1. Click the Downloads tab
+1. Enable "Email notification upon dowload completion"
+1. Fill out the fields
+   1. From: <any text>
+   1. To: destination email address (I used the T-Mobile sms relay <YOUR-NUMBER@tmomail.net>)
+1. Enable SSL
+1. Fill out Authentication
+   1. Username: your email address <YOUR-EMAIL@gmail.com>
+   1. Password: [generate a Google app password](https://myaccount.google.com/apppasswords)
