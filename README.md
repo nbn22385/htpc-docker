@@ -111,6 +111,41 @@ sudo iptables -t mangle -F
 
 ## Additional notes
 
+### Mounting a network share on host and Plex container
+
+In this example, I have an external USB hard drive connected to my router,
+which is shared as an SMB share on the network. Note: I could not get the
+credentials working and resorted to allowing any connection from within the
+network (working to fix).
+
+1. On the host, install cifs and create the folder to be used as the mount
+   point
+
+```bash
+sudo apt install cifs-utils -y
+sudo mkdir /mnt/elements # directory that will act as the mount point for the SMB share
+```
+
+3. Edit the fstab file to automount the network share on boot
+
+```bash
+sudo vim /etc/fstab
+```
+
+```bash
+# <SHARE-IP>/<FOLDER>    <MOUNT-POINT>  <TYPE> <OPTIONS>                <BACKUP> <FSCK>
+//192.168.29.1/Elements /mnt/elements   cifs   _netdevuid=nate,vers=1.0 0        0
+```
+
+2. In Plex, add the shared folder(s) to your library. In this example, I mapped
+   the shared folder to `/elements` in the container.
+
+```yml
+plex:
+  volumes:
+    - /mnt/elements/:/elements
+```
+
 ### Disable laptop suspend when lid is closed
 
 When using a laptop as a server, the system may suspend when the lid is closed.
