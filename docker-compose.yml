@@ -15,6 +15,7 @@ services:
     volumes:
       - ${ROOT}/config/plex:/config
       - ${ROOT}/downloads:/downloads # qBitTorrent/SABnzbd completed downloads
+      - /mnt/elements:/elements # network share
     restart: unless-stopped
 
   qbittorrentvpn:
