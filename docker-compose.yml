@@ -11,21 +11,17 @@ services:
       - PGID=1000
       - TZ=${TZ}
       - VERSION=docker
-      - PLEX_CLAIM= #optional
+      - PLEX_CLAIM=
     volumes:
       - ${ROOT}/config/plex:/config
-      - ${ROOT}/downloads:/downloads # qBitTorrent/SABnzbd completed downloads
-      - /mnt/elements:/elements # network share
+      - ${ROOT}/data/media:/media
+      # - /mnt/elements:/elements # network share
     restart: unless-stopped
 
   qbittorrentvpn:
     image: dyonr/qbittorrentvpn
     container_name: qbittorrentvpn
     privileged: true
-    volumes:
-      - ${ROOT}/config:/config
-      - ${ROOT}/downloads:/downloads
-      - ${ROOT}/incomplete:/incomplete
     environment:
       - VPN_ENABLED=yes
       - VPN_TYPE=wireguard
@@ -33,9 +29,42 @@ services:
       - PUID=1000
       - PGID=1000
       - INSTALL_PYTHON3=yes
+    volumes:
+      - ${ROOT}/config/qbittorrent:/config
+      - ${ROOT}/data/torrents:/data/torrents
     ports:
       - 8080:8080 # web UI
     restart: unless-stopped
+
+  # radarr:
+  #   image: lscr.io/linuxserver/radarr:latest
+  #   container_name: radarr
+  #   environment:
+  #     - PUID=13002
+  #     - PGID=13000
+  #     - UMASK=002
+  #     - TZ=Europe/Amsterdam
+  #   volumes:
+  #     - ${ROOT}/config/radarr:/config
+  #     - ${ROOT}/data:/data
+  #   ports:
+  #     - "7878:7878"
+  #   restart: unless-stopped
+
+  # sonarr:
+  #   image: lscr.io/linuxserver/sonarr:latest
+  #   container_name: sonarr
+  #   environment:
+  #     - PUID=13001
+  #     - PGID=13000
+  #     - UMASK=002
+  #     - TZ=Europe/Amsterdam
+  #   volumes:
+  #     - ${ROOT}/config/sonarr:/config
+  #       ${ROOT}/data:/data
+  #   ports:
+  #     - "8989:8989"
+  #   restart: unless-stopped
 
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
@@ -46,8 +75,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${ROOT}/config/sabnzbd:/config
-      - ${ROOT}/downloads:/config/Downloads/complete
-      - ${ROOT}/incomplete:/config/Downloads/incomplete
+      - ${ROOT}/data/usenet:/data/usenet
     ports:
       - 8081:8080 # web UI
     restart: unless-stopped

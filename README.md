@@ -47,6 +47,43 @@ Install a Microsoft Remote Desktop client application
 - [Microsoft Remote Desktop from the Mac AppStore](https://apps.apple.com/us/app/microsoft-remote-desktop/id1295203466?mt=12)
 - [Microsoft Remote Desktop on Windows](https://apps.microsoft.com/store/detail/9WZDNCRFJ3PS?hl=en-us&gl=US&rtc=1)
 
+## Set up directories
+
+Run the `setup.sh` script to create the host's folder structure with the
+correct permissions
+
+```bash
+git clone git@github.com:nbn22385/htpc-docker.git
+cd htpc-docker
+./setup.sh
+```
+
+The resulting folder structure for service configuration files:
+
+```
+/config
+├── plex
+├── qbittorrent
+├── radarr
+├── sabnzbd
+└── sonarr
+```
+
+The resulting folder structure for data/media files:
+
+```
+/data
+├── media
+│   ├── movies
+│   └── tv
+├── torrents
+│   ├── movies
+│   └── tv
+└── usenet
+    ├── movies
+    └── tv
+```
+
 ## Set up services via Docker Compose
 
 ### Obtain VPN configuration file (optional)
@@ -69,8 +106,7 @@ an OpenVPN or Wireguard configuration must be made available at the
 ### Start the services
 
 ```bash
-git clone git@github.com:nbn22385/htpc-docker.git
-cd htpc-docker
+cd /path/to/htpc-docker
 docker compose up -d
 ```
 
@@ -84,6 +120,16 @@ URLS below:
 | Plex        | http://`<server-ip>`:32400/web    |
 | qBitTorrent | http://`<server-ip>`:8080         |
 | SabNZBD     | http://`<server-ip>`:8081/sabnzbd |
+<!-- | Sonarr      | http://`<server-ip>`:8989         | -->
+<!-- | Radarr      | http://`<server-ip>`:7878         | -->
+
+### Per-service configuration
+
+- [Plex](https://trash-guides.info/Plex/Tips/Plex-media-server/)
+- [qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/)
+- [SABnzbd](https://trash-guides.info/Downloaders/SABnzbd/Basic-Setup/)
+<!-- - [Sonarr](https://trash-guides.info/Sonarr/) -->
+<!-- - [Radarr](https://trash-guides.info/Radarr/) -->
 
 ## Helpful commands
 
