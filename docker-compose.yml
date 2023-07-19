@@ -7,8 +7,8 @@ services:
     container_name: plex
     network_mode: host
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TZ}
       - VERSION=docker
       - PLEX_CLAIM=
@@ -26,57 +26,69 @@ services:
       - VPN_ENABLED=yes
       - VPN_TYPE=wireguard
       - LAN_NETWORK=192.168.29.0/24
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - INSTALL_PYTHON3=yes
     volumes:
       - ${ROOT}/config/qbittorrent:/config
       - ${ROOT}/data/torrents:/data/torrents
     ports:
-      - 8080:8080 # web UI
+      - "8080:8080" # web UI
     restart: unless-stopped
 
-  # radarr:
-  #   image: lscr.io/linuxserver/radarr:latest
-  #   container_name: radarr
-  #   environment:
-  #     - PUID=13002
-  #     - PGID=13000
-  #     - UMASK=002
-  #     - TZ=Europe/Amsterdam
-  #   volumes:
-  #     - ${ROOT}/config/radarr:/config
-  #     - ${ROOT}/data:/data
-  #   ports:
-  #     - "7878:7878"
-  #   restart: unless-stopped
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${ROOT}/config/radarr:/config
+      - ${ROOT}/data:/data
+    ports:
+      - "7878:7878"
+    restart: unless-stopped
 
-  # sonarr:
-  #   image: lscr.io/linuxserver/sonarr:latest
-  #   container_name: sonarr
-  #   environment:
-  #     - PUID=13001
-  #     - PGID=13000
-  #     - UMASK=002
-  #     - TZ=Europe/Amsterdam
-  #   volumes:
-  #     - ${ROOT}/config/sonarr:/config
-  #       ${ROOT}/data:/data
-  #   ports:
-  #     - "8989:8989"
-  #   restart: unless-stopped
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${ROOT}/config/sonarr:/config
+      - ${ROOT}/data:/data
+    ports:
+      - "8989:8989"
+    restart: unless-stopped
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${ROOT}/config/bazarr:/config
+      - ${ROOT}/data/media:/data/media
+    ports:
+      - 6767:6767
+    restart: unless-stopped
 
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TZ}
     volumes:
       - ${ROOT}/config/sabnzbd:/config
       - ${ROOT}/data/usenet:/data/usenet
     ports:
-      - 8081:8080 # web UI
+      - "8081:8080" # web UI
     restart: unless-stopped
 

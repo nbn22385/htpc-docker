@@ -120,16 +120,18 @@ URLS below:
 | Plex        | http://`<server-ip>`:32400/web    |
 | qBitTorrent | http://`<server-ip>`:8080         |
 | SabNZBD     | http://`<server-ip>`:8081/sabnzbd |
-<!-- | Sonarr      | http://`<server-ip>`:8989         | -->
-<!-- | Radarr      | http://`<server-ip>`:7878         | -->
+| Sonarr      | http://`<server-ip>`:8989         |
+| Radarr      | http://`<server-ip>`:7878         |
+| Bazarr      | http://`<server-ip>`:6767         |
 
 ### Per-service configuration
 
-- [Plex](https://trash-guides.info/Plex/Tips/Plex-media-server/)
-- [qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/)
-- [SABnzbd](https://trash-guides.info/Downloaders/SABnzbd/Basic-Setup/)
-<!-- - [Sonarr](https://trash-guides.info/Sonarr/) -->
-<!-- - [Radarr](https://trash-guides.info/Radarr/) -->
+- [Plex](https://trash-guides.info/Plex/Tips/Plex-media-server/) (Media server)
+- [qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/) (Torrent downloader)
+- [SABnzbd](https://trash-guides.info/Downloaders/SABnzbd/Basic-Setup/) (Usenet downloader)
+- [Radarr](https://trash-guides.info/Radarr/) (Movie manager)
+- [Sonarr](https://trash-guides.info/Sonarr/) (TV show manager)
+- [Bazarr](https://trash-guides.info/Bazarr/Setup-Guide/) (Subtitle manager)
 
 ## Helpful commands
 
