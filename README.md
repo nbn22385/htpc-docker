@@ -124,24 +124,27 @@ URLS below:
 | Radarr      | Movie manager    | http://`<server-ip>`:7878         |
 | Bazarr      | Subtitle manager | http://`<server-ip>`:6767         |
 
-### Per-service configuration
+### Service configuration
 
-#### [Plex](https://trash-guides.info/Plex/Tips/Plex-media-server/) (Media server)
+#### Plex
+
+These custom settings are adapted from [TRaSH Guide for
+Plex](https://trash-guides.info/Plex/Tips/Plex-media-server/).
 
 <details>
 <summary>Custom settings</summary>
 
 - `Settings`
   - `General`
-    - **(Disabled)** Send crash reports to Plex
-    - **(Disabled)** Enable Plex Media Server debug logging 
+    - :white_square_button: Send crash reports to Plex
+    - :white_square_button: Enable Plex Media Server debug logging
   - `Remote Access`
-    - **(Enabled)** Remote access (Note: may need to forward router port 32400 to the host)
-    - **(Enabled)** Manually specify public port: 32400
+    - :ballot_box_with_check: Remote access (Note: may need to forward router port 32400 to the host)
+    - :ballot_box_with_check: Manually specify public port: 32400
   - `Library`
-    - **(Enabled)** Scan my library automatically
-    - **(Enabled)** Run a partial scan when changes are detected 
-    - **(Enabled)** Run scanner tasks at a lower priority 
+    - :ballot_box_with_check: Scan my library automatically
+    - :ballot_box_with_check: Run a partial scan when changes are detected
+    - :ballot_box_with_check: Run scanner tasks at a lower priority
 - `Manage`
   - `Libraries`
     - `Movies`
@@ -156,11 +159,44 @@ URLS below:
         - Ensure `/media/tv` is listed
 </details>
 
-#### [qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/) (Torrent downloader)
+#### qBittorrent
+
+These custom settings are adapted from [TRaSH Guide for
+qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/).
 
 <details>
-  <summary>Custom settings</summary>
-  
+<summary>Custom settings</summary>
+
+- `Settings`
+  - `Downloads`
+    - :ballot_box_with_check: Delete .torrent files afterwards
+    - :ballot_box_with_check: Pre-allocate disk space for all files
+    - Default torrent management mode: **Automatic**
+    - Default save path: `/data/torrents`
+    - :ballot_box_with_check: (Optional) Email notification upon download completion
+      - From: "qBittorrent" (or any text)
+      - To: Destination email address (I used the T-Mobile sms relay
+        <YOUR-NUMBER@tmomail.net>)
+      - SMTP server: smtp.gmail.com
+      - :ballot_box_with_check: This server requires a secure connection (SSL)
+      - `Authentication`
+        - Username: <YOUR-EMAIL@gmail.com>
+        - Password: [generate a Google app
+          password](https://myaccount.google.com/apppasswords)
+  - `Connection`
+    - Peer connection protocol: **TCP**
+  - `Speed`
+    - `Global Rate Limits`
+      - Set limits here if desired
+  - `WebUI`
+    - :ballot_box_with_check: (Optional) Use alternative WebUI
+      - Extract [VueTorrent](https://github.com/WDaan/VueTorrent#manual) to the
+        `/config/qBittorrent/vuetorrent` directory
+  - `Tags & Categories`
+    - Add categories `movies` and `tv`
+  - `Advanced`
+    - Network Interface: **wg0** (this is the Wireguard interface)
+
 </details>
 
 #### [SABnzbd](https://trash-guides.info/Downloaders/SABnzbd/Basic-Setup/) (Usenet downloader)
