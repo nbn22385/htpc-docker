@@ -175,8 +175,8 @@ qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/).
     - Default save path: `/data/torrents`
     - :ballot_box_with_check: (Optional) Email notification upon download completion
       - From: "qBittorrent" (or any text)
-      - To: Destination email address (I used the T-Mobile sms relay
-        <YOUR-NUMBER@tmomail.net>)
+      - To: Destination email address (I used the T-Mobile email-to-sms gateway
+        <10-digit-number@tmomail.net>). Check your carrier.
       - SMTP server: smtp.gmail.com
       - :ballot_box_with_check: This server requires a secure connection (SSL)
       - `Authentication`
@@ -191,7 +191,7 @@ qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/).
   - `WebUI`
     - :ballot_box_with_check: (Optional) Use alternative WebUI
       - Extract [VueTorrent](https://github.com/WDaan/VueTorrent#manual) to the
-        `/config/qBittorrent/vuetorrent` directory
+        host's `/config/qBittorrent/vuetorrent` directory, then set this option
   - `Tags & Categories`
     - Add categories `movies` and `tv`
   - `Advanced`
@@ -304,30 +304,3 @@ Uncomment and edit the following lines:
 HandleLidSwitch=ignore
 HandleLidSwitchExternalPower=ignore
 ```
-
-### qBittorrent customization
-
-#### VueTorrent UI theme
-
-https://github.com/WDaan/VueTorrent#manual
-
-1. Visit the Vuetorrent [Releases](https://github.com/WDaan/VueTorrent/releases) page
-1. Download the latest vuetorrent.zip
-1. Unzip the downloaded file
-1. Point your alternate WebUI location to the vuetorrent folder in qBittorrent settings
-
-#### Email notifications
-
-When a file completes downloading, you can email/SMS yourself. I used the email
-address that T-Mobile provides which is translated into an SMS.
-
-1. Open qBittorrent settings
-1. Click the Downloads tab
-1. Enable "Email notification upon dowload completion"
-1. Fill out the fields
-   1. From: <any text>
-   1. To: destination email address (I used the T-Mobile sms relay <YOUR-NUMBER@tmomail.net>)
-1. Enable SSL
-1. Fill out Authentication
-   1. Username: your email address <YOUR-EMAIL@gmail.com>
-   1. Password: [generate a Google app password](https://myaccount.google.com/apppasswords)
