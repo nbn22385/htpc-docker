@@ -115,23 +115,82 @@ docker compose up -d
 Once all services are running, you can access each service's web UI using the
 URLS below:
 
-| Service     | URL                               |
-| ----------- | --------------------------------- |
-| Plex        | http://`<server-ip>`:32400/web    |
-| qBitTorrent | http://`<server-ip>`:8080         |
-| SabNZBD     | http://`<server-ip>`:8081/sabnzbd |
-| Sonarr      | http://`<server-ip>`:8989         |
-| Radarr      | http://`<server-ip>`:7878         |
-| Bazarr      | http://`<server-ip>`:6767         |
+| Service     | Role             | URL                               |
+| ----------- | ---------------- | --------------------------------- |
+| Plex        | Media server     | http://`<server-ip>`:32400/web    |
+| qBitTorrent | Torrent client   | http://`<server-ip>`:8080         |
+| SabNZBD     | Usenet client    | http://`<server-ip>`:8081/sabnzbd |
+| Sonarr      | TV show manager  | http://`<server-ip>`:8989         |
+| Radarr      | Movie manager    | http://`<server-ip>`:7878         |
+| Bazarr      | Subtitle manager | http://`<server-ip>`:6767         |
 
 ### Per-service configuration
 
-- [Plex](https://trash-guides.info/Plex/Tips/Plex-media-server/) (Media server)
-- [qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/) (Torrent downloader)
-- [SABnzbd](https://trash-guides.info/Downloaders/SABnzbd/Basic-Setup/) (Usenet downloader)
-- [Radarr](https://trash-guides.info/Radarr/) (Movie manager)
-- [Sonarr](https://trash-guides.info/Sonarr/) (TV show manager)
-- [Bazarr](https://trash-guides.info/Bazarr/Setup-Guide/) (Subtitle manager)
+#### [Plex](https://trash-guides.info/Plex/Tips/Plex-media-server/) (Media server)
+
+<details>
+<summary>Custom settings</summary>
+
+- `Settings`
+  - `General`
+    - **(Disabled)** Send crash reports to Plex
+    - **(Disabled)** Enable Plex Media Server debug logging 
+  - `Remote Access`
+    - **(Enabled)** Remote access (Note: may need to forward router port 32400 to the host)
+    - **(Enabled)** Manually specify public port: 32400
+  - `Library`
+    - **(Enabled)** Scan my library automatically
+    - **(Enabled)** Run a partial scan when changes are detected 
+    - **(Enabled)** Run scanner tasks at a lower priority 
+- `Manage`
+  - `Libraries`
+    - `Movies`
+      - `Manage Recommendations`
+        - Disable any recommendations you don't want to the client screen
+      - `Edit Library > Add Folders`
+        - Ensure `/media/movies` is listed
+    - `TV`
+      - `Manage Recommendations`
+        - Disable any recommendations you don't want to the client screen
+      - `Edit Library > Add Folders`
+        - Ensure `/media/tv` is listed
+</details>
+
+#### [qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/) (Torrent downloader)
+
+<details>
+  <summary>Custom settings</summary>
+  
+</details>
+
+#### [SABnzbd](https://trash-guides.info/Downloaders/SABnzbd/Basic-Setup/) (Usenet downloader)
+
+<details>
+  <summary>Custom settings</summary>
+  
+</details>
+
+#### [Radarr](https://trash-guides.info/Radarr/) (Movie manager)
+
+<details>
+  <summary>Custom settings</summary>
+  
+</details>
+
+#### [Sonarr](https://trash-guides.info/Sonarr/) (TV show manager)
+
+<details>
+  <summary>Custom settings</summary>
+  
+</details>
+
+#### [Bazarr](https://trash-guides.info/Bazarr/Setup-Guide/) (Subtitle manager)
+
+<details>
+  <summary>Custom settings</summary>
+  
+</details>
+
 
 ## Helpful commands
 
