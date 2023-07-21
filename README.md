@@ -346,3 +346,15 @@ Uncomment and edit the following lines:
 HandleLidSwitch=ignore
 HandleLidSwitchExternalPower=ignore
 ```
+
+### Restart on a schedule
+
+I set the host PC to restart every Sunday at 4 AM with a cronjob
+
+```bash
+sudo crontab -e
+# add the following line, save, and quit the editor
+0 4 * * SUN /sbin/reboot
+# verify the rule was saved
+sudo crontab -l
+```
