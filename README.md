@@ -5,6 +5,25 @@
 Media download, sort, and serve with the desired quality and subtitles, behind
 a VPN (optional), ready to watch, in a beautiful media player.
 
+- [Home media server](#home-media-server)
+  * [Overview](#overview)
+  * [Prerequisites](#prerequisites)
+    + [Install Docker engine](#install-docker-engine)
+    + [Install SSH server](#install-ssh-server)
+    + [Enable remote desktop](#enable-remote-desktop)
+  * [Set up directories](#set-up-directories)
+  * [Set up services via Docker Compose](#set-up-services-via-docker-compose)
+    + [VPN configuration](#vpn-configuration)
+    + [Start the services](#start-the-services)
+    + [Access web UI for services](#access-web-ui-for-services)
+    + [Service configuration](#service-configuration)
+  * [Helpful commands](#helpful-commands)
+  * [Troubleshooting](#troubleshooting)
+  * [Additional notes](#additional-notes)
+    + [Mounting a network share on host and Plex container](#mounting-a-network-share-on-host-and-plex-container)
+    + [Disable laptop suspend when lid is closed](#disable-laptop-suspend-when-lid-is-closed)
+    + [Restart on a schedule](#restart-on-a-schedule)
+
 ## Overview
 
 This setup provides the ability to download media using BitTorrent (via
@@ -53,7 +72,9 @@ Test the SSH connection by logging in from another computer
 ssh <host-username>@<host-ip>
 ```
 
-### (Optional)Configure remote desktop
+### Enable remote desktop
+
+**Optional**
 
 To allow remote desktop access to the server from another computer, install and
 configure `xrdp` on the host.
@@ -115,7 +136,9 @@ cd htpc-docker
 
 ## Set up services via Docker Compose
 
-### (Optional) Set up VPN configuration
+### VPN configuration
+
+**Optional**
 
 **Note:** To disable using a VPN for qBittorrent connections, set
 `VPN_ENABLED=no` for the `qbittorrentvpn` service in `docker-compose.yml`.
