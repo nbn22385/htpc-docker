@@ -264,6 +264,26 @@ qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/).
 <details>
   <summary>Custom settings</summary>
   
+- `Settings`
+  - `Languages`
+    - `Subtitles Language > Languages Filter`
+      - Add `English` to the list
+    - `Language Profiles`
+      - Add a new profile and choose the English language
+    - `Default Settings`
+      - :ballot_box_with_check: Series
+        - Profile: **English profile name**
+      - :ballot_box_with_check: Movies
+        - Profile: **English profile name**
+  - `Providers`
+    - Add: **OpenSubtitles.com, Embedded Subtitles, subf2m.co**
+  - `Sonarr`
+    - Address: **sonarr**
+    - API Key: **Sonarr API key from its `Settings > General` page**
+  - `Radarr`
+    - Address: **radarr**
+    - API Key: **Radarr API key from its `Settings > General` page**
+
 </details>
 
 
