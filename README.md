@@ -2,27 +2,23 @@
 
 **Plex / qBittorrent + VPN / SABnzbd / Radarr / Sonarr / Prowlarr / Bazarr**
 
-Media download, sort, and serve with the desired quality and subtitles, behind
-a VPN (optional), ready to watch, in a beautiful media player.
-
-- [Home media server](#home-media-server)
-  * [Overview](#overview)
-  * [Prerequisites](#prerequisites)
-    + [Install Docker engine](#install-docker-engine)
-    + [Install SSH server](#install-ssh-server)
-    + [Enable remote desktop](#enable-remote-desktop)
-  * [Set up directories](#set-up-directories)
-  * [Set up services via Docker Compose](#set-up-services-via-docker-compose)
-    + [VPN configuration](#vpn-configuration)
-    + [Start the services](#start-the-services)
-    + [Access web UI for services](#access-web-ui-for-services)
-    + [Service configuration](#service-configuration)
-  * [Helpful commands](#helpful-commands)
-  * [Troubleshooting](#troubleshooting)
-  * [Additional notes](#additional-notes)
-    + [Mounting a network share on host and Plex container](#mounting-a-network-share-on-host-and-plex-container)
-    + [Disable laptop suspend when lid is closed](#disable-laptop-suspend-when-lid-is-closed)
-    + [Restart on a schedule](#restart-on-a-schedule)
+* [Overview](#overview)
+* [Prerequisites](#prerequisites)
+  + [Install Docker engine](#install-docker-engine)
+  + [Install SSH server](#install-ssh-server)
+  + [Enable remote desktop](#enable-remote-desktop)
+* [Set up directories](#set-up-directories)
+* [Set up services via Docker Compose](#set-up-services-via-docker-compose)
+  + [VPN configuration](#vpn-configuration)
+  + [Start the services](#start-the-services)
+  + [Access web UI fooar services](#access-web-ui-for-services)
+  + [Service configuration](#service-configuration)
+* [Helpful commands](#helpful-commands)
+* [Troubleshooting](#troubleshooting)
+* [Additional notes](#additional-notes)
+  + [Mounting a network share on host and Plex container](#mounting-a-network-share-on-host-and-plex-container)
+  + [Disable laptop suspend when lid is closed](#disable-laptop-suspend-when-lid-is-closed)
+  + [Restart on a schedule](#restart-on-a-schedule)
 
 ## Overview
 
@@ -30,7 +26,7 @@ This setup provides the ability to download media using BitTorrent (via
 qBittorrent, with optional VPN support) and/or Usenet (via SABnzbd). All media
 is automatically categorized and served on the network via Plex Media Server.
 
-All services are run as Docker containers managed via Docker Compose.
+All services are run asd Docker containers managed via Docker Compose.
 
 The remainder of this guide assumes a server running a Debian-based operating
 system. My current setup is a ~2013 HP Pavillion G6 with an Intel Core i5-3230M
