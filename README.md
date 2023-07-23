@@ -11,7 +11,7 @@
 * [Set up services via Docker Compose](#set-up-services-via-docker-compose)
   + [VPN configuration](#vpn-configuration)
   + [Start the services](#start-the-services)
-  + [Access web UI fooar services](#access-web-ui-for-services)
+  + [Access web UI for services](#access-web-ui-for-services)
   + [Service configuration](#service-configuration)
 * [Helpful commands](#helpful-commands)
 * [Troubleshooting](#troubleshooting)
@@ -106,7 +106,9 @@ cd htpc-docker
 
 ```
 /config
+├── bazarr
 ├── plex
+├── prowlarr
 ├── qbittorrent
 ├── radarr
 ├── sabnzbd
@@ -258,7 +260,7 @@ qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/).
 
 </details>
 
-#### [SABnzbd](https://trash-guides.info/Downloaders/SABnzbd/Basic-Setup/) (Usenet downloader)
+#### SABnzbd
 
 <details>
   <summary>Custom settings</summary>
@@ -384,8 +386,8 @@ which is shared as an SMB share on the network. Note: I could not get the
 credentials working and resorted to allowing any connection from within the
 network (working to fix).
 
-1. On the host, install cifs and create the directory to be used as the mount
-   point
+1. On the host, install `cifs` and create the directory to be used
+   as the mount point
 
 ```bash
 sudo apt install cifs-utils -y
