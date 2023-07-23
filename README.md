@@ -1,6 +1,6 @@
 # Home media server
 
-**Plex / qBittorrent + VPN / SABnzbd / Radarr / Sonarr / Bazarr**
+**Plex / qBittorrent + VPN / SABnzbd / Radarr / Sonarr / Prowlarr / Bazarr**
 
 Media download, sort, and serve with the desired quality and subtitles, behind
 a VPN (optional), ready to watch, in a beautiful media player.
@@ -176,8 +176,9 @@ URLs below:
 | Plex        | Media server     | http://`<server-ip>`:32400/web    |
 | qBitTorrent | Torrent client   | http://`<server-ip>`:8080         |
 | SabNZBD     | Usenet client    | http://`<server-ip>`:8081/sabnzbd |
-| Sonarr      | TV show manager  | http://`<server-ip>`:8989         |
 | Radarr      | Movie manager    | http://`<server-ip>`:7878         |
+| Sonarr      | TV show manager  | http://`<server-ip>`:8989         |
+| Prowlarr    | Indexer manager  | http://`<server-ip>`:9696         |
 | Bazarr      | Subtitle manager | http://`<server-ip>`:6767         |
 
 ### Service configuration
@@ -241,14 +242,16 @@ qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/).
       - :ballot_box_with_check: This server requires a secure connection (SSL)
       - `Authentication`
         - Username: <YOUR-EMAIL@gmail.com>
-        - Password: [generate a Google app
-          password](https://myaccount.google.com/apppasswords)
+        - Password: [generate a Google app password](https://myaccount.google.com/apppasswords)
   - `Connection`
     - Peer connection protocol: **TCP**
   - `Speed`
     - `Global Rate Limits`
       - Set limits here if desired
   - `WebUI`
+    - :ballot_box_with_check: Bypass authentication for clients on localhost
+    - :ballot_box_with_check: Bypass authentication for clients in whitelisted IP subnets
+      - Example: 192.168.1.0/24
     - :ballot_box_with_check: (Optional) Use alternative WebUI
       - Extract [VueTorrent](https://github.com/WDaan/VueTorrent#manual) to the
         host's `/config/qBittorrent/vuetorrent` directory, then set this option
@@ -268,21 +271,61 @@ qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/).
 
 </details>
 
-#### [Radarr](https://trash-guides.info/Radarr/) (Movie manager)
+#### Radarr
+
+These custom settings are adapted from [TRaSH Guide for
+qBittorrent](https://trash-guides.info/Radarr/).
 
 <details>
   <summary>Custom settings</summary>
   
+  TBD
+
 </details>
 
-#### [Sonarr](https://trash-guides.info/Sonarr/) (TV show manager)
+#### Sonarr
+
+These custom settings are adapted from [TRaSH Guide for
+qBittorrent](https://trash-guides.info/Sonarr/).
 
 <details>
   <summary>Custom settings</summary>
   
+  TBD
+
 </details>
 
-#### [Bazarr](https://trash-guides.info/Bazarr/Setup-Guide/) (Subtitle manager)
+#### Prowlarr
+
+These custom settings are adapted from [Servarr Guide for
+qBittorrent](https://wiki.servarr.com/prowlarr/quick-start-guide).
+
+<details>
+<summary>Custom settings</summary>
+
+- `Indexers`
+  - `Add Indexer`
+    - Search for an indexer and add it. Keep default settings.
+- `Settings`
+  - `Apps`
+    - Click `+` and select `Sonarr`
+      - Prowlarr server: **http://prowlarr:9696**
+      - Sonarr server: **http://sonarr:8989**
+      - ApiKey: **Sonarr API key from its `Settings > General` page**
+  - `Download Clients`
+    - Click `+` and select `qBittorrent`
+      - Host: **qbittorrentvpn**
+      - Username/Password: Use qbittorrent credentials
+  - `General`
+    - `Security`
+      - Authentication Required: **Disabled for Local Addresses**
+
+</details>
+
+#### Bazarr
+
+These custom settings are adapted from [TRaSH Guide for
+qBittorrent](https://trash-guides.info/Bazarr/Setup-Guide/).
 
 <details>
   <summary>Custom settings</summary>
@@ -308,7 +351,6 @@ qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/).
     - API Key: **Radarr API key from its `Settings > General` page**
 
 </details>
-
 
 ## Helpful commands
 
@@ -396,8 +438,10 @@ I set the host PC to restart every Sunday at 4 AM with a cronjob
 
 ```bash
 sudo crontab -e
+
 # add the following line, save, and quit the editor
 0 4 * * SUN /sbin/reboot
+
 # verify the rule was saved
 sudo crontab -l
 ```
