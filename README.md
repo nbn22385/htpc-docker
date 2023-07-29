@@ -55,7 +55,7 @@ host.
 
 ```bash
 # install
-sudo apt-get install openssh-server
+sudo apt install  openssh-server
 # enable service
 sudo systemctl enable ssh --now
 # start service

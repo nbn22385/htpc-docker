@@ -12,6 +12,8 @@ services:
       - TZ=${TZ}
       - VERSION=docker
       - PLEX_CLAIM=
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:plex
+      - TP_THEME=${THEME}
     volumes:
       - ${ROOT}/config/plex:/config
       - ${ROOT}/data/media:/media
@@ -25,6 +27,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:prowlarr
+      - TP_THEME=${THEME}
     volumes:
       - ${ROOT}/config/prowlarr:/config
     ports:
@@ -56,6 +60,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:radarr
+      - TP_THEME=${THEME}
     volumes:
       - ${ROOT}/config/radarr:/config
       - ${ROOT}/data:/data
@@ -70,6 +76,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:sonarr
+      - TP_THEME=${THEME}
     volumes:
       - ${ROOT}/config/sonarr:/config
       - ${ROOT}/data:/data
@@ -84,6 +92,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:bazarr
+      - TP_THEME=${THEME}
     volumes:
       - ${ROOT}/config/bazarr:/config
       - ${ROOT}/data/media:/data/media
@@ -98,6 +108,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:sabnzbd
+      - TP_THEME=${THEME}
     volumes:
       - ${ROOT}/config/sabnzbd:/config
       - ${ROOT}/data/usenet:/data/usenet
