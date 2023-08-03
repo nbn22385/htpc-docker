@@ -403,7 +403,7 @@ sudo apt install cifs-utils -y
 sudo mkdir /mnt/elements # directory that will act as the mount point for the SMB share
 ```
 
-3. Edit the fstab file to automount the network share on boot
+3. Edit the fstab file to automount the network share on boot (and after network is up)
 
 ```bash
 sudo vim /etc/fstab
@@ -420,7 +420,7 @@ sudo vim /etc/fstab
 ```yml
 plex:
   volumes:
-    - /mnt/elements/:/elements
+    - /mnt/elements:/elements
 ```
 
 ### Disable laptop suspend when lid is closed
