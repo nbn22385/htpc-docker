@@ -138,24 +138,20 @@ cd htpc-docker
 
 **Optional**
 
-**Note:** To disable using a VPN for qBittorrent connections, set
-`VPN_ENABLED=no` for the `qbittorrentvpn` service in `docker-compose.yml`.
+**Note:** To disable use of a VPN for qBittorrent connections, remove the
+`network_mode` line from the `qbittorrent` service in `docker-compose.yml`.
+Configuration updates will need to be made to prowlarr, radarr, and sonarr
+download client settings, namely pointing the server to `qbittorrent`, rather
+than `vpn`.
 
-In order to use the VPN feature of the
-[qBittorrentvpn](https://hub.docker.com/r/dyonr/qbittorrentvpn) image, either
-an OpenVPN or Wireguard configuration must be made available at the
-`/data/config/qbittorrent` directory.
+In order to use the Wireguard docker image, a Wireguard configuration file must
+exist on the host as `/config/wireguard/wg0.cfg`.
 
-- For OpenVPN, place the `.ovpn` file from your VPN provider in the
-  `/data/config/qbittorrent/openvpn` directory.
-- For Wireguard, place the `.conf` file in the
-  `/data/config/qbittorrent/wireguard` directory. **The file must be named
-  `wg0.conf`.**
-  - If using privateinternetaccess VPN, a config file is not provided and must
-    be generated. I used [this
-    repository](https://github.com/hsand/pia-wg#linux-debianubuntu) to generate
-    a configuration file. Once generated, ensure the output file is named
-    `wg0.conf`, then copy it to the directory noted above.
+- If using the Private Internet Access (PIA) VPN, a config file is not provided
+  and must be generated. I used the instructions in
+  [this repository](https://github.com/hsand/pia-wg#linux-debianubuntu)
+  to generate a configuration file. Once generated, ensure the output file is
+  named `wg0.conf`, then copy it to the directory noted above.
 
 ### Start the services
 
@@ -251,10 +247,11 @@ qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/).
     - :ballot_box_with_check: Bypass authentication for clients in whitelisted IP subnets
       - Example: 192.168.1.0/24
     - :ballot_box_with_check: (Optional) Use alternative WebUI
-      - Extract [VueTorrent](https://github.com/WDaan/VueTorrent#manual) to the
-        host's `/config/qBittorrent/vuetorrent` directory, then set this option
+      - [VueTorrent](https://github.com/WDaan/VueTorrent#manual) already exists
+        in the container. To use it, set this path to `/vuetorrent`.
   - `Tags & Categories`
-    - Add categories `movies` and `tv`
+    - Add category `movies` with save path `/data/torrents/movies`
+    - Add category `tv` with save path `/data/torrents/tv`
   - `Advanced`
     - Network Interface: **wg0** (this is the Wireguard interface)
 
@@ -264,7 +261,7 @@ Click the :floppy_disk: icon to apply the changes. Then (optionally) apply the c
     - `VueTorrent`
       - Copy/paste the following code and click the `Import Settings` button
           ```json
-          {"sort_options":{"isCustomSortEnabled":true,"sort":"priority","reverse":false,"filter":null,"category":null,"tag":null,"tracker":null},"webuiSettings":{"lang":"en","darkTheme":true,"showFreeSpace":true,"showSpeedGraph":true,"showSessionStat":true,"showAlltimeStat":true,"showCurrentSpeed":true,"showTrackerFilter":false,"showSpeedInTitle":false,"deleteWithFiles":false,"title":"Global Speed","rightDrawer":false,"topPagination":false,"paginationSize":15,"dateFormat":"DD/MM/YYYY, HH:mm:ss","openSideBarOnStart":false,"showShutdownButton":false,"refreshInterval":2000,"contentInterval":5000,"torrentPieceCountRenderThreshold":5000,"busyDesktopTorrentProperties":[{"name":"Size","active":true},{"name":"Progress","active":true},{"name":"DownloadSpeed","active":true},{"name":"UploadSpeed","active":true},{"name":"Downloaded","active":true},{"name":"SavePath","active":false},{"name":"Uploaded","active":false},{"name":"ETA","active":true},{"name":"Peers","active":false},{"name":"Seeds","active":true},{"name":"Status","active":true},{"name":"Ratio","active":false},{"name":"Tracker","active":false},{"name":"Category","active":true},{"name":"Tags","active":false},{"name":"AddedOn","active":false},{"name":"Availability","active":false},{"name":"LastActivity","active":false},{"name":"CompletedOn","active":false},{"name":"AmountLeft","active":false},{"name":"ContentPath","active":false},{"name":"DownloadedSession","active":false},{"name":"DownloadLimit","active":false},{"name":"DownloadPath","active":false},{"name":"Hash","active":false},{"name":"InfoHashV1","active":false},{"name":"InfoHashV2","active":false},{"name":"SeenComplete","active":false},{"name":"TimeActive","active":false},{"name":"TotalSize","active":false},{"name":"TrackersCount","active":false},{"name":"UploadedSession","active":false},{"name":"UploadLimit","active":false},{"name":"GlobalSpeed","active":false},{"name":"GlobalVolume","active":false}],"doneDesktopTorrentProperties":[{"name":"Size","active":true},{"name":"Progress","active":true},{"name":"DownloadSpeed","active":true},{"name":"UploadSpeed","active":true},{"name":"Downloaded","active":true},{"name":"SavePath","active":false},{"name":"Uploaded","active":false},{"name":"ETA","active":true},{"name":"Peers","active":false},{"name":"Seeds","active":true},{"name":"Status","active":true},{"name":"Ratio","active":false},{"name":"Tracker","active":false},{"name":"Category","active":true},{"name":"Tags","active":false},{"name":"AddedOn","active":false},{"name":"Availability","active":false},{"name":"LastActivity","active":false},{"name":"CompletedOn","active":false},{"name":"AmountLeft","active":false},{"name":"ContentPath","active":false},{"name":"DownloadedSession","active":false},{"name":"DownloadLimit","active":false},{"name":"DownloadPath","active":false},{"name":"Hash","active":false},{"name":"InfoHashV1","active":false},{"name":"InfoHashV2","active":false},{"name":"SeenComplete","active":false},{"name":"TimeActive","active":false},{"name":"TotalSize","active":false},{"name":"TrackersCount","active":false},{"name":"UploadedSession","active":false},{"name":"UploadLimit","active":false},{"name":"GlobalSpeed","active":false},{"name":"GlobalVolume","active":false}],"busyMobileCardProperties":[{"name":"Status","active":true},{"name":"Tracker","active":true},{"name":"Category","active":true},{"name":"Tags","active":false},{"name":"Size","active":true},{"name":"Progress","active":true},{"name":"ProgressBar","active":true},{"name":"Ratio","active":false},{"name":"Uploaded","active":false},{"name":"ETA","active":true},{"name":"Seeds","active":true},{"name":"Peers","active":false},{"name":"DownloadSpeed","active":true},{"name":"UploadSpeed","active":false}],"doneMobileCardProperties":[{"name":"Status","active":true},{"name":"Tracker","active":true},{"name":"Category","active":true},{"name":"Tags","active":false},{"name":"Size","active":true},{"name":"Progress","active":true},{"name":"ProgressBar","active":true},{"name":"Ratio","active":false},{"name":"Uploaded","active":false},{"name":"ETA","active":true},{"name":"Seeds","active":true},{"name":"Peers","active":false},{"name":"DownloadSpeed","active":true},{"name":"UploadSpeed","active":false}]},"authenticated":true}
+          {"sort_options":{"isCustomSortEnabled":true,"sort":"priority","reverse":false,"filter":null,"category":null,"tag":null,"tracker":null},"webuiSettings":{"lang":"en","darkTheme":true,"showFreeSpace":true,"showSpeedGraph":true,"showSessionStat":true,"showAlltimeStat":true,"showCurrentSpeed":true,"showTrackerFilter":false,"showSpeedInTitle":false,"deleteWithFiles":false,"title":"Default","rightDrawer":false,"topPagination":false,"paginationSize":15,"dateFormat":"DD/MM/YYYY, HH:mm:ss","openSideBarOnStart":false,"showShutdownButton":false,"useBitSpeed":false,"useBinaryUnits":false,"refreshInterval":2000,"contentInterval":5000,"torrentPieceCountRenderThreshold":5000,"busyDesktopTorrentProperties":[{"name":"Size","active":true},{"name":"Progress","active":true},{"name":"DownloadSpeed","active":true},{"name":"UploadSpeed","active":true},{"name":"Downloaded","active":true},{"name":"SavePath","active":false},{"name":"Uploaded","active":true},{"name":"ETA","active":true},{"name":"Peers","active":true},{"name":"Seeds","active":true},{"name":"Status","active":true},{"name":"Ratio","active":false},{"name":"Tracker","active":false},{"name":"Category","active":true},{"name":"Tags","active":false},{"name":"AddedOn","active":false},{"name":"Availability","active":false},{"name":"LastActivity","active":false},{"name":"CompletedOn","active":false},{"name":"AmountLeft","active":false},{"name":"ContentPath","active":false},{"name":"DownloadedSession","active":false},{"name":"DownloadLimit","active":false},{"name":"DownloadPath","active":false},{"name":"Hash","active":false},{"name":"InfoHashV1","active":false},{"name":"InfoHashV2","active":false},{"name":"SeenComplete","active":false},{"name":"TimeActive","active":false},{"name":"TotalSize","active":false},{"name":"TrackersCount","active":false},{"name":"UploadedSession","active":false},{"name":"UploadLimit","active":false},{"name":"GlobalSpeed","active":false},{"name":"GlobalVolume","active":false}],"doneDesktopTorrentProperties":[{"name":"Size","active":true},{"name":"Progress","active":true},{"name":"DownloadSpeed","active":true},{"name":"UploadSpeed","active":true},{"name":"Downloaded","active":true},{"name":"SavePath","active":false},{"name":"Uploaded","active":true},{"name":"ETA","active":true},{"name":"Peers","active":true},{"name":"Seeds","active":true},{"name":"Status","active":true},{"name":"Ratio","active":false},{"name":"Tracker","active":false},{"name":"Category","active":true},{"name":"Tags","active":false},{"name":"AddedOn","active":false},{"name":"Availability","active":false},{"name":"LastActivity","active":false},{"name":"CompletedOn","active":false},{"name":"AmountLeft","active":false},{"name":"ContentPath","active":false},{"name":"DownloadedSession","active":false},{"name":"DownloadLimit","active":false},{"name":"DownloadPath","active":false},{"name":"Hash","active":false},{"name":"InfoHashV1","active":false},{"name":"InfoHashV2","active":false},{"name":"SeenComplete","active":false},{"name":"TimeActive","active":false},{"name":"TotalSize","active":false},{"name":"TrackersCount","active":false},{"name":"UploadedSession","active":false},{"name":"UploadLimit","active":false},{"name":"GlobalSpeed","active":false},{"name":"GlobalVolume","active":false}],"busyMobileCardProperties":[{"name":"Status","active":true},{"name":"Tracker","active":false},{"name":"Category","active":true},{"name":"Tags","active":false},{"name":"Size","active":true},{"name":"Progress","active":true},{"name":"ProgressBar","active":true},{"name":"Ratio","active":false},{"name":"Uploaded","active":false},{"name":"ETA","active":true},{"name":"Seeds","active":true},{"name":"Peers","active":true},{"name":"DownloadSpeed","active":true},{"name":"UploadSpeed","active":true}],"doneMobileCardProperties":[{"name":"Status","active":true},{"name":"Tracker","active":false},{"name":"Category","active":true},{"name":"Tags","active":false},{"name":"Size","active":true},{"name":"Progress","active":true},{"name":"ProgressBar","active":true},{"name":"Ratio","active":false},{"name":"Uploaded","active":false},{"name":"ETA","active":true},{"name":"Seeds","active":true},{"name":"Peers","active":true},{"name":"DownloadSpeed","active":true},{"name":"UploadSpeed","active":true}]},"authenticated":true}
           ```
 
 </details>
@@ -281,31 +278,53 @@ Click the :floppy_disk: icon to apply the changes. Then (optionally) apply the c
 #### Radarr
 
 These custom settings are adapted from [TRaSH Guide for
-qBittorrent](https://trash-guides.info/Radarr/).
+Radarr](https://trash-guides.info/Radarr/).
 
 <details>
   <summary>Custom settings</summary>
   
-  TBD
+- `Settings`
+  - `Media Management`
+    - :ballot_box_with_check: Rename Movies
+    - :ballot_box_with_check: Replace Illegal Characters
+    - `Root Folders`
+      - Add an entry for `/data/media/movies`
+  - `Download Clients`
+    - Click `+` and select `qBittorrent`
+      - Host: **wireguard**
+      - Username/Password: Use qbittorrent credentials
+  - `Indexers`
+    - These should auto-import once Prowlarr is set up
 
 </details>
 
 #### Sonarr
 
 These custom settings are adapted from [TRaSH Guide for
-qBittorrent](https://trash-guides.info/Sonarr/).
+Sonarr](https://trash-guides.info/Sonarr/).
 
 <details>
   <summary>Custom settings</summary>
   
-  TBD
+- `Settings`
+  - `Media Management`
+    - :ballot_box_with_check: Rename Episodes
+    - :ballot_box_with_check: Replace Illegal Characters
+    - `Root Folders`
+      - Add an entry for `/data/media/tv`
+  - `Download Clients`
+    - Click `+` and select `qBittorrent`
+      - Host: **wireguard**
+      - Username/Password: Use qbittorrent credentials
+  - `Indexers`
+    - These should auto-import once Prowlarr is set up
 
 </details>
 
 #### Prowlarr
 
 These custom settings are adapted from [Servarr Guide for
-qBittorrent](https://wiki.servarr.com/prowlarr/quick-start-guide).
+Prowlarr](https://wiki.servarr.com/prowlarr/quick-start-guide).
 
 <details>
 <summary>Custom settings</summary>
@@ -315,13 +334,17 @@ qBittorrent](https://wiki.servarr.com/prowlarr/quick-start-guide).
     - Search for an indexer and add it. Keep default settings.
 - `Settings`
   - `Apps`
+    - Click `+` and select `Radarr`
+      - Prowlarr server: **http://prowlarr:9696**
+      - Radarr server: **http://radarr:7878**
+      - ApiKey: **Radarr API key from its `Settings > General` page**
     - Click `+` and select `Sonarr`
       - Prowlarr server: **http://prowlarr:9696**
       - Sonarr server: **http://sonarr:8989**
       - ApiKey: **Sonarr API key from its `Settings > General` page**
   - `Download Clients`
     - Click `+` and select `qBittorrent`
-      - Host: **qbittorrentvpn**
+      - Host: **wireguard**
       - Username/Password: Use qbittorrent credentials
   - `General`
     - `Security`
