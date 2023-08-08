@@ -85,35 +85,35 @@ services:
       - "8989:8989"
     restart: unless-stopped
 
-  bazarr:
-    image: lscr.io/linuxserver/bazarr:latest
-    container_name: bazarr
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - DOCKER_MODS=ghcr.io/gilbn/theme.park:bazarr
-      - TP_THEME=${THEME}
-    volumes:
-      - ${ROOT}/config/bazarr:/config
-      - ${ROOT}/data/media:/data/media
-    ports:
-      - 6767:6767
-    restart: unless-stopped
+  # bazarr:
+  #   image: lscr.io/linuxserver/bazarr:latest
+  #   container_name: bazarr
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #     - DOCKER_MODS=ghcr.io/gilbn/theme.park:bazarr
+  #     - TP_THEME=${THEME}
+  #   volumes:
+  #     - ${ROOT}/config/bazarr:/config
+  #     - ${ROOT}/data/media:/data/media
+  #   ports:
+  #     - 6767:6767
+  #   restart: unless-stopped
 
-  sabnzbd:
-    image: lscr.io/linuxserver/sabnzbd:latest
-    container_name: sabnzbd
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - DOCKER_MODS=ghcr.io/gilbn/theme.park:sabnzbd
-      - TP_THEME=${THEME}
-    volumes:
-      - ${ROOT}/config/sabnzbd:/config
-      - ${ROOT}/data/usenet:/data/usenet
-    ports:
-      - "8081:8080" # web UI
-    restart: unless-stopped
+  # sabnzbd:
+  #   image: lscr.io/linuxserver/sabnzbd:latest
+  #   container_name: sabnzbd
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #     - DOCKER_MODS=ghcr.io/gilbn/theme.park:sabnzbd
+  #     - TP_THEME=${THEME}
+  #   volumes:
+  #     - ${ROOT}/config/sabnzbd:/config
+  #     - ${ROOT}/data/usenet:/data/usenet
+  #   ports:
+  #     - "8081:8080" # web UI
+  #   restart: unless-stopped
 
