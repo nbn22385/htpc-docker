@@ -175,11 +175,12 @@ URLs below:
 | Prowlarr    | Indexer manager  | http://`<server-ip>`:9696         |
 | Bazarr      | Subtitle manager | http://`<server-ip>`:6767         |
 
-### Service configuration
+### Manual service configuration
 
 Settings must be manually configured for each service to properly use the
-directory structure we set up, as well as adjust other behaviors. I have listed
-all important settings below, but feel free to adjust anything else as needed.
+directory structure we set up, as well as adjust other behaviors and
+integrations. I have listed the most important settings below, but adjust
+anything else as needed.
 
 #### Plex
 
@@ -193,7 +194,7 @@ Plex](https://trash-guides.info/Plex/Tips/Plex-media-server/).
   - `General`
     - :white_square_button: Send crash reports to Plex
     - :white_square_button: Enable Plex Media Server debug logging
-  - `Remote Access`
+  - `Remote Access` (Optional)
     - :ballot_box_with_check: Remote access (Note: may need to forward router port 32400 to the host)
     - :ballot_box_with_check: Manually specify public port: 32400
   - `Library`
@@ -289,12 +290,26 @@ Radarr](https://trash-guides.info/Radarr/).
     - :ballot_box_with_check: Replace Illegal Characters
     - `Root Folders`
       - Add an entry for `/data/media/movies`
+  - `Indexers`
+    - These should auto-import once Prowlarr is set up
   - `Download Clients`
     - Click `+` and select `qBittorrent`
       - Host: **wireguard**
       - Username/Password: Use qbittorrent credentials
-  - `Indexers`
-    - These should auto-import once Prowlarr is set up
+  - `Import Lists` (Optional, allows initiating downloads via the Plex Discover
+    interface)
+    - Click `+` and select `Plex Watchlist`
+    - :ballot_box_with_check: Enable
+    - :ballot_box_with_check: Enable Automatic Add
+    - Monitor: select `None` to manually manage files in Radarr, otherwise
+      leave default value
+    - :ballot_box_with_check: Search on Add: enable to have Radarr automatically
+      search for movie, otherwise leave default value
+    - Quality Profile: select desired profile
+    - Authenticate with Plex.tv: click button to authenticate
+      - **Note**: Clicking `Test` will produce a warning if your Plex watchlist
+        contains no movies
+    - Click `Save`
 
 </details>
 
@@ -312,12 +327,23 @@ Sonarr](https://trash-guides.info/Sonarr/).
     - :ballot_box_with_check: Replace Illegal Characters
     - `Root Folders`
       - Add an entry for `/data/media/tv`
+  - `Indexers`
+    - These should auto-import once Prowlarr is set up
   - `Download Clients`
     - Click `+` and select `qBittorrent`
       - Host: **wireguard**
       - Username/Password: Use qbittorrent credentials
-  - `Indexers`
-    - These should auto-import once Prowlarr is set up
+  - `Import Lists` (Optional, allows initiating downloads via the Plex Discover
+    interface)
+    - Click `+` and select `Plex Watchlist`
+    - :ballot_box_with_check: Enable Automatic Add
+    - Monitor: select `None` to manually manage files in Sonarr, otherwise
+      leave default value
+    - Quality Profile: select desired profile
+    - Authenticate with Plex.tv: click button to authenticate
+      - **Note**: Clicking `Test` will produce a warning if your Plex watchlist
+        contains no shows
+    - Click `Save`
 
 </details>
 
