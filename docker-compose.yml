@@ -46,7 +46,6 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
       - VERSION=docker
-      - PLEX_CLAIM=
       - DOCKER_MODS=ghcr.io/gilbn/theme.park:plex
       - TP_THEME=${THEME}
     volumes:
@@ -101,6 +100,18 @@ services:
     ports:
       - "8989:8989"
     restart: unless-stopped
+
+  # overseerr:
+  #   image: lscr.io/linuxserver/overseerr:latest
+  #   container_name: overseerr
+  #   network_mode: host
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ${ROOT}/config/overseer:/config
+  #   restart: unless-stopped
 
   # bazarr:
   #   image: lscr.io/linuxserver/bazarr:latest

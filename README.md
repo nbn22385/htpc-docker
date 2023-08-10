@@ -12,13 +12,10 @@
   + [VPN configuration](#vpn-configuration)
   + [Start the services](#start-the-services)
   + [Access web UI for services](#access-web-ui-for-services)
-  + [Service configuration](#service-configuration)
+  + [Manual service configuration](#manual-service-configuration)
 * [Helpful commands](#helpful-commands)
 * [Troubleshooting](#troubleshooting)
 * [Additional notes](#additional-notes)
-  + [Mounting a network share on host and Plex container](#mounting-a-network-share-on-host-and-plex-container)
-  + [Disable laptop suspend when lid is closed](#disable-laptop-suspend-when-lid-is-closed)
-  + [Restart on a schedule](#restart-on-a-schedule)
 
 ## Overview
 
@@ -26,13 +23,28 @@ This setup provides the ability to download media using BitTorrent (via
 qBittorrent, with optional VPN support) and/or Usenet (via SABnzbd). All media
 is automatically categorized and served on the network via Plex Media Server.
 
-All services are run asd Docker containers managed via Docker Compose.
+All services in this guide are run in Docker containers managed via Docker
+Compose.
+
+| Service     | Description                                                        |
+| ----------- | ------------------------------------------------------------------ |
+| Plex        | Organizes media and streams to smart devices                       |
+| qBitTorrent | Torrent download client                                            |
+| SABnzbd     | Usenet download client                                             |
+| Radarr      | Movie collection manager, integrates with qBittorrent/SABnzbd      |
+| Sonarr      | TV show collection manager, integrates with qBittorrent/SABnzbd    |
+| Prowlarr    | Manages Torrent and Usenet indexers, integrates with Radarr/Sonarr |
+| Bazarr      | Manages and downloads subtitles, integrates with Radarr/Sonarr     |
 
 The remainder of this guide assumes a server running a Debian-based operating
-system. My current setup is a ~2013 HP Pavillion G6 with an Intel Core i5-3230M
+system. My current setup is a 2013 HP Pavillion G6 with an Intel Core i5-3230M
 and 6GB of RAM running Xubuntu 22.04.
 
 ## Prerequisites
+
+* [Install Docker engine](#install-docker-engine)
+* [Install SSH server](#install-ssh-server)
+* [Enable remote desktop](#enable-remote-desktop)
 
 ### Install Docker engine
 
@@ -181,6 +193,14 @@ Settings must be manually configured for each service to properly use the
 directory structure we set up, as well as adjust other behaviors and
 integrations. I have listed the most important settings below, but adjust
 anything else as needed.
+
+* [Plex](#plex)
+* [qBittorrent](#qbittorrent)
+* [SABnzbd](#sabnzbd)
+* [Radarr](#radarr)
+* [Sonarr](#sonarr)
+* [Prowlarr](#prowlarr)
+* [Bazarr](#bazarr)
 
 #### Plex
 
@@ -433,6 +453,10 @@ sudo iptables -t mangle -F
 ```
 
 ## Additional notes
+
+* [Mounting a network share on host and Plex container](#mounting-a-network-share-on-host-and-plex-container)
+* [Disable laptop suspend when lid is closed](#disable-laptop-suspend-when-lid-is-closed)
+* [Restart on a schedule](#restart-on-a-schedule)
 
 ### Mounting a network share on host and Plex container
 
