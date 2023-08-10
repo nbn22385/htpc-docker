@@ -26,15 +26,15 @@ is automatically categorized and served on the network via Plex Media Server.
 All services in this guide are run in Docker containers managed via Docker
 Compose.
 
-| Service     | Description                                                        |
-| ----------- | ------------------------------------------------------------------ |
-| Plex        | Organizes media and streams to smart devices                       |
-| qBitTorrent | Torrent download client                                            |
-| SABnzbd     | Usenet download client                                             |
-| Radarr      | Movie collection manager, integrates with qBittorrent/SABnzbd      |
-| Sonarr      | TV show collection manager, integrates with qBittorrent/SABnzbd    |
-| Prowlarr    | Manages Torrent and Usenet indexers, integrates with Radarr/Sonarr |
-| Bazarr      | Manages and downloads subtitles, integrates with Radarr/Sonarr     |
+| Service | Description |
+| ------- | ----------- |
+| <img src="https://plex.tv/favicon.ico" alt="plex" width="12"/>  Plex | Organizes media and streams to smart devices |
+| <img src="https://www.qbittorrent.org/favicon.ico" alt="qbittorrent" width="12"/>  qBitTorrent | Torrent download client |
+| <img src="https://raw.githubusercontent.com/sabnzbd/sabnzbd.github.io/master/images/favicon.ico" alt="sabnzbd" width="12"/> SABnzbd | Usenet download client |
+| <img src="https://raw.githubusercontent.com/Radarr/radarr.github.io/master/img/favicon.ico" alt="radarr" width="12"/> Radarr | Movie collection manager, integrates with qBittorrent/SABnzbd |
+| <img src="https://raw.githubusercontent.com/Sonarr/sonarr.github.io/master/img/favicon.ico" alt="sonarr" width="12"/> Sonarr | TV show collection manager, integrates with qBittorrent/SABnzbd |
+| <img src="https://raw.githubusercontent.com/Prowlarr/Prowlarr/develop/frontend/src/Content/Images/Icons/favicon.ico" alt="prowlarr" width="12"/> Prowlarr | Manages Torrent and Usenet indexers, integrates with Radarr/Sonarr |
+| <img src="https://raw.githubusercontent.com/morpheus65535/bazarr/master/frontend/public/images/favicon.ico" alt="bazarr" width="12"/> Bazarr | Manages and downloads subtitles, integrates with Radarr/Sonarr |
 
 The remainder of this guide assumes a server running a Debian-based operating
 system. My current setup is a 2013 HP Pavillion G6 with an Intel Core i5-3230M
@@ -430,10 +430,20 @@ qBittorrent](https://trash-guides.info/Bazarr/Setup-Guide/).
 
 ## Helpful commands
 
-View logs for one or more services:
+Starting and stopping services:
 
 ```bash
-docker compose logs [service-name]
+# Start services in the background (all by default, can specify individual service(s))
+docker compose up [service-names] -d
+
+# Stop services (all by default, can specify individual service(s))
+docker compose down [service-names]
+```
+
+View logs for services:
+
+```bash
+docker compose logs <service-name>
 ```
 
 Restart services and recreate volumes with recent updates:
@@ -512,9 +522,9 @@ HandleLidSwitch=ignore
 HandleLidSwitchExternalPower=ignore
 ```
 
-### Restart on a schedule
+### Restart host on a schedule
 
-I set the host PC to restart every Sunday at 4 AM with a cronjob
+I set the host PC to restart every Sunday at 4 AM with a Cron job
 
 ```bash
 sudo crontab -e
