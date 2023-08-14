@@ -402,10 +402,8 @@ Prowlarr](https://wiki.servarr.com/prowlarr/quick-start-guide).
 <details>
 <summary>Custom settings</summary>
 
-- `Indexers`
-  - `Add Indexer`
-    - Search for an indexer and add it. Keep default settings.
 - `Settings`
+  - Click `Show Advanced` (enables changing API limits below)
   - `Apps`
     - Click `+` and select `Radarr`
       - Prowlarr server: **http://prowlarr:9696**
@@ -415,13 +413,30 @@ Prowlarr](https://wiki.servarr.com/prowlarr/quick-start-guide).
       - Prowlarr server: **http://prowlarr:9696**
       - Sonarr server: **http://sonarr:8989**
       - ApiKey: **Sonarr API key from its `Settings > General` page**
-  - `Download Clients`
+  - `Download Clients` (Optional)
+    - Note: If you intend to do searches directly within Prowlarr, you need to
+      add Download Clients. Otherwise, you do not need to add them here. For
+      searches from your Apps, the download clients configured there are used
+      instead.
     - Click `+` and select `qBittorrent`
       - Host: **wireguard**
       - Username/Password: Use qbittorrent credentials
+    - Click `+` and select `SABnzbd`
+      - Host: **sabnzbd**
+      - Port: **8080** (even though the web interface is 8081)
+      - Api Key: **SABnzbd API key from its `Config > General (Security)` page**
+      - Default Category: you can add a `prowlarr` category in SABnzbd or use
+        an existing category
   - `General`
     - `Security`
       - Authentication Required: **Disabled for Local Addresses**
+- `Indexers`
+  - `Add Indexer`
+    - Search for an indexer and click to configure it
+    - :ballot_box_with_check: Enable
+    - For Usenet indexers:
+      - API Key: Get the API key from your indexer's settings page
+      - Query Limit: **25** (Free indexers typically allow 25 queries/day)
 
 </details>
 
