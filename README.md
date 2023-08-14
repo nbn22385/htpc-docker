@@ -289,10 +289,29 @@ Click the :floppy_disk: icon to apply the changes. Then (optionally) apply the c
 
 #### SABnzbd
 
+These custom settings are adapted from [TRaSH Guide for
+SABnzbd](https://trash-guides.info/Downloaders/SABnzbd/Basic-Setup/).
+
 <details>
   <summary>Custom settings</summary>
 
-  TBD
+- `Config`
+  - `Folders`
+    - Temporary Download Folder: **/data/usenet/incomplete**
+    - Completed Download Folder: **/data/usenet**
+    - Click `Save Changes`
+  - `Servers`
+    - Click `+ Add Server`
+      - Enter the Host, Username, and Password for your Usenet provider
+      - Test and add the server
+  - `Categories`
+    - Note: these paths are relative to the **Completed Download Folder** set above
+    - For the `movies` category, set the Folder/Path to `movies`, click `Save`
+    - For the `tv` category, set the Folder/Path to `tv`, click `Save`
+  - `Special`
+    - `Values`
+      - `host_whitelist()`: Add an entry for the hostname `sabnzbd`
+        - Note: This is necessary to allow access from Radarr/Sonarr
 
 </details>
 
@@ -316,6 +335,10 @@ Radarr](https://trash-guides.info/Radarr/).
     - Click `+` and select `qBittorrent`
       - Host: **wireguard**
       - Username/Password: Use qbittorrent credentials
+    - Click `+` and select `SABnzbd`
+      - Host: **sabnzbd**
+      - Port: **8080** (even though the web interface is 8081)
+      - Api Key: **SABnzbd API key from its `Config > General (Security)` page**
   - `Import Lists` (Optional, allows initiating downloads via the Plex Discover
     interface)
     - Click `+` and select `Plex Watchlist`
@@ -353,6 +376,10 @@ Sonarr](https://trash-guides.info/Sonarr/).
     - Click `+` and select `qBittorrent`
       - Host: **wireguard**
       - Username/Password: Use qbittorrent credentials
+    - Click `+` and select `SABnzbd`
+      - Host: **sabnzbd**
+      - Port: **8080** (even though the web interface is 8081)
+      - Api Key: **SABnzbd API key from its `Config > General (Security)` page**
   - `Import Lists` (Optional, allows initiating downloads via the Plex Discover
     interface)
     - Click `+` and select `Plex Watchlist`

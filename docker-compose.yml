@@ -37,6 +37,22 @@ services:
       - ${ROOT}/data/torrents:/data/torrents
     restart: unless-stopped
 
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:sabnzbd
+      - TP_THEME=${THEME}
+    volumes:
+      - ${ROOT}/config/sabnzbd:/config
+      - ${ROOT}/data/usenet:/data/usenet
+    ports:
+      - "8081:8080" # web UI
+    restart: unless-stopped
+
   plex:
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
@@ -128,20 +144,3 @@ services:
   #   ports:
   #     - 6767:6767
   #   restart: unless-stopped
-
-  # sabnzbd:
-  #   image: lscr.io/linuxserver/sabnzbd:latest
-  #   container_name: sabnzbd
-  #   environment:
-  #     - PUID=${PUID}
-  #     - PGID=${PGID}
-  #     - TZ=${TZ}
-  #     - DOCKER_MODS=ghcr.io/gilbn/theme.park:sabnzbd
-  #     - TP_THEME=${THEME}
-  #   volumes:
-  #     - ${ROOT}/config/sabnzbd:/config
-  #     - ${ROOT}/data/usenet:/data/usenet
-  #   ports:
-  #     - "8081:8080" # web UI
-  #   restart: unless-stopped
-
