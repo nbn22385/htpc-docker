@@ -330,7 +330,9 @@ Radarr](https://trash-guides.info/Radarr/).
     - `Root Folders`
       - Add an entry for `/data/media/movies`
   - `Indexers`
-    - These should auto-import once Prowlarr is set up
+    - The indexers will auto-populate once Prowlarr is set up
+    - Click `Show Advanced`
+    - `RSS Sync Interval`: 0 (prevents hitting indexer API limits)
   - `Download Clients`
     - Click `+` and select `qBittorrent`
       - Host: **wireguard**
@@ -339,6 +341,7 @@ Radarr](https://trash-guides.info/Radarr/).
       - Host: **sabnzbd**
       - Port: **8080** (even though the web interface is 8081)
       - Api Key: **SABnzbd API key from its `Config > General (Security)` page**
+      - :white_square_button: Remove Completed (I like to preserve SABnzbd history)
   - `Import Lists` (Optional, allows initiating downloads via the Plex Discover
     interface)
     - Click `+` and select `Plex Watchlist`
@@ -371,7 +374,9 @@ Sonarr](https://trash-guides.info/Sonarr/).
     - `Root Folders`
       - Add an entry for `/data/media/tv`
   - `Indexers`
-    - These should auto-import once Prowlarr is set up
+    - The indexers will auto-populate once Prowlarr is set up
+    - Click `Show Advanced`
+    - `RSS Sync Interval`: 0 (prevents hitting indexer API limits)
   - `Download Clients`
     - Click `+` and select `qBittorrent`
       - Host: **wireguard**
