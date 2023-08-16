@@ -7,6 +7,7 @@ DATA_DIR=/data
 
 # Make directories
 sudo mkdir -pv ${CONFIG_DIR}/{bazarr,overseerr,plex,prowlarr,qbittorrent,radarr,sabnzbd,sonarr,wireguard}
+sudo mkdir -pv ${DATA_DIR}/{torrents,usenet,media}/{tv,movies}
 
 # Set permissions
 sudo chmod -Rv 775 ${DATA_DIR}/
