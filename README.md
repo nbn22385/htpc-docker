@@ -101,6 +101,11 @@ with to connect from.
 
 ## Set up directories
 
+**The instructions below are designed for local storage on the host filesystem.
+To store media on network shares or USB drives, see the [Additional
+notes](#additional-notes) section. It is still recommended to store the
+`/data/config` directory on the host filesystem.**
+
 Run the `setup.sh` script on the host to create the pre-determined directory
 structure with the correct permissions. These folders will be used as volume
 mounts for the Docker containers, and be referenced in each service's settings.
@@ -511,11 +516,104 @@ sudo iptables -t mangle -F
 
 ## Additional notes
 
-* [Mounting a network share on host and Plex container](#mounting-a-network-share-on-host-and-plex-container)
+* [Mounting an external USB disk on host and Docker containers](#mounting-an-external-usb-disk-on-host-and-docker-containers)
+* [Mounting a network share on host and Docker containers](#mounting-a-network-share-on-host-and-docker-containers)
 * [Disable laptop suspend when lid is closed](#disable-laptop-suspend-when-lid-is-closed)
 * [Restart on a schedule](#restart-on-a-schedule)
+* [Update Docker images to their latest versions](#update-docker-images-to-their-latest-versions)
 
-### Mounting a network share on host and Plex container
+### Mounting an external USB disk on host and Docker containers
+
+In this example, I have an NTFS-formatted external USB hard drive connected to
+my host PC.
+
+1. On the host PC, create a directory for the mount point.
+
+```bash
+sudo mkdir /media/usb
+```
+
+2. Get the UUID of the USB drive. Look for an entry that matches your drive.
+
+```bash
+sudo blkid
+
+# example output
+# ...
+# /dev/sdb1: LABEL="MY_DRIVE" BLOCK_SIZE="512" UUID="ABCD1234" TYPE="ntfs" PARTUUID="00075ff3-01"
+# ...
+```
+
+3. Edit the fstab file to automount the USB drive on boot. Use the UUID, mount
+   point, and filesystem type found in the previous steps.
+
+```bash
+sudo vim /etc/fstab
+```
+
+```bash
+UUID=ABCD1234 /media/usb ntfs defaults,noatime,nofail,umask=000 0 2
+```
+
+4. Mount the drive and ensure it is available at the mount point.
+
+```bash
+sudo mount -a
+
+ls /media/usb
+```
+
+5. Set up download paths on the drive to be used by the servies.
+
+```bash
+# create destination directories on the drive
+DATA_DIR=/media/usb
+sudo mkdir -pv ${DATA_DIR}/{torrents,usenet,media}/{tv,movies}
+sudo chmod -Rv 775 ${DATA_DIR}/
+sudo chown -Rv ${USER}:${USER} ${DATA_DIR}/
+```
+
+***If you are switching an existing setup from internal to external storage,
+continue with the steps below to update service settings.***
+
+#### qBittorrent
+
+- `Settings > Downloads > Default Save Path`: `/usb/torrents`
+- `Categories > movies > Save Path`: `/usb/torrents/movies`
+- `Categories > tv > Save Path`: `/usb/torrents/tv`
+
+**Note**: if using VueTorrent UI, you might have to switch back to the default
+UI to set the category paths
+
+#### Plex
+
+- `Settings > Manage > Libraries > Movies > Edit > Add Folders`: `/usb/media/movies`
+- `Settings > Manage > Libraries > TV Shows > Edit > Add Folders`: `/usb/media/tv`
+
+**Note**: you can remove any existing paths that are no longer needed
+
+- `Home > Movies ... > Scan Library Files` to confirm changes took effect
+- `Home > TV Shows ... > Scan Library Files` to confirm changes took effect
+
+#### Radarr
+
+- `Settings > Media Management > Root Folders`: Add `/usb/media/movies`
+- `Settings > Lists > PlexImport > Root Folder`: `/usb/media/movies`
+- `Movies > Edit Movies > Select All > Edit`: Change Root Folder to
+  `/usb/media/movies`, Apply, Allow moving files
+
+**Note**: you can remove any existing paths that are no longer needed
+
+#### Sonarr
+
+- `Settings > Media Management > Root Folders`: Add `/usb/media/tv`
+- `Settings > Import Lists > PlexImport > Root Folder`: `/usb/media/tv`
+- `Series > Mass Editor > Select All`: Change Root Folder to
+  `/usb/media/tv`, Allow moving files
+
+**Note**: you can remove any existing paths that are no longer needed
+
+### Mounting a network share on host and Docker containers
 
 **Note**: This will result in non-optimal copying/moving due to hardlinks not
 functioning across filesystems/shares.
@@ -581,4 +679,13 @@ sudo crontab -e
 
 # verify the rule was saved
 sudo crontab -l
+```
+
+### Update Docker images to their latest versions
+
+```
+docker compose down
+docker compose pull
+docker compose up -d
+docker image prune
 ```
