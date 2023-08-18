@@ -415,14 +415,21 @@ Prowlarr](https://wiki.servarr.com/prowlarr/quick-start-guide).
 - `Settings`
   - Click `Show Advanced` (enables changing API limits below)
   - `Apps`
-    - Click `+` and select `Radarr`
-      - Prowlarr server: **http://prowlarr:9696**
-      - Radarr server: **http://radarr:7878**
-      - ApiKey: **Radarr API key from its `Settings > General` page**
-    - Click `+` and select `Sonarr`
-      - Prowlarr server: **http://prowlarr:9696**
-      - Sonarr server: **http://sonarr:8989**
-      - ApiKey: **Sonarr API key from its `Settings > General` page**
+    - `Applications`
+      - Click `+` and select `Radarr`
+        - Prowlarr server: **http://prowlarr:9696**
+        - Radarr server: **http://radarr:7878**
+        - ApiKey: **Radarr API key from its `Settings > General` page**
+      - Click `+` and select `Sonarr`
+        - Prowlarr server: **http://prowlarr:9696**
+        - Sonarr server: **http://sonarr:8989**
+        - ApiKey: **Sonarr API key from its `Settings > General` page**
+    - `Sync Profiles`
+      - Click `+` (this will be used later in the Indexers configuration)
+        - Name: **No RSS**
+        - :white_square_button: Enable RSS
+        - :ballot_box_with_check: Enable Interactive Search
+        - :ballot_box_with_check: Enable Automatic Search
   - `Download Clients` (Optional)
     - Note: If you intend to do searches directly within Prowlarr, you need to
       add Download Clients. Otherwise, you do not need to add them here. For
@@ -445,6 +452,7 @@ Prowlarr](https://wiki.servarr.com/prowlarr/quick-start-guide).
     - Search for an indexer and click to configure it
     - :ballot_box_with_check: Enable
     - For Usenet indexers:
+      - Sync Profile: **No RSS** (prevents hitting indexer API limits)
       - API Key: Get the API key from your indexer's settings page
       - Query Limit: **25** (Free indexers typically allow 25 queries/day)
 
