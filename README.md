@@ -1,7 +1,5 @@
 # Home media server
 
-**Plex / qBittorrent + VPN / SABnzbd / Radarr / Sonarr / Prowlarr / Bazarr**
-
 * [Overview](#overview)
 * [Prerequisites](#prerequisites)
   + [Install Docker engine](#install-docker-engine)
@@ -581,8 +579,10 @@ sudo chmod -Rv 775 ${DATA_DIR}/
 sudo chown -Rv ${USER}:${USER} ${DATA_DIR}/
 ```
 
-***If you are switching an existing setup from internal to external storage,
-continue with the steps below to update service settings.***
+***If you are switching an internal drive to external storage for all media,
+you can stop here. If you want to mount the external drive as additional mount
+in the container (i.e. `/usb`, continue with the steps below to update service
+settings.***
 
 #### qBittorrent
 
@@ -593,10 +593,16 @@ continue with the steps below to update service settings.***
 **Note**: if using VueTorrent UI, you might have to switch back to the default
 UI to set the category paths
 
+#### SABnzbd
+
+- `Config > Folders > Temporary Download Folder`: `/usb/usenet/incomplete`
+- `Config > Folders > Completed Download Folder`: `/usb/usenet`
+- Click `Save Changes`
+
 #### Plex
 
-- `Settings > Manage > Libraries > Movies > Edit > Add Folders`: `/usb/media/movies`
-- `Settings > Manage > Libraries > TV Shows > Edit > Add Folders`: `/usb/media/tv`
+- `Settings > Manage > Libraries > Movies > Edit Library > Add Folders`: `/usb/media/movies`
+- `Settings > Manage > Libraries > TV Shows > Edit Library > Add Folders`: `/usb/media/tv`
 
 **Note**: you can remove any existing paths that are no longer needed
 
