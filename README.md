@@ -551,6 +551,7 @@ sudo iptables -t mangle -F
 ## Additional notes
 
 * [Mounting an external USB disk on host and Docker containers](#mounting-an-external-usb-disk-on-host-and-docker-containers)
+* [Enable USB hard drive idle mode](#enable-USB-hard-drive-idle-mode)
 * [Mounting a network share on host and Docker containers](#mounting-a-network-share-on-host-and-docker-containers)
 * [Disable laptop suspend when lid is closed](#disable-laptop-suspend-when-lid-is-closed)
 * [Restart on a schedule](#restart-on-a-schedule)
@@ -596,7 +597,7 @@ sudo mount -a
 ls /media/usb
 ```
 
-5. Set up download paths on the drive to be used by the servies.
+5. Set up download paths on the drive to be used by the services.
 
 ```bash
 # create destination directories on the drive
@@ -653,6 +654,42 @@ UI to set the category paths
   `/usb/media/tv`, Allow moving files
 
 **Note**: you can remove any existing paths that are no longer needed
+
+### Enable USB hard drive idle mode
+
+Some USB hard drives do not spin down after a period of time. This section
+describes how to enable the functionality manually.
+
+1. Download and install the [`hd-idle`](https://github.com/adelolmo/hd-idle)
+   utility.
+
+```bash
+curl -L https://github.com/adelolmo/hd-idle/releases/download/v1.20/hd-idle_1.20_amd64.deb -o hd-idle.deb
+sudo dpkg -i hd-idle.deb
+```
+
+2. Configure `hd-idle` to set the idle timeout for your USB drive (in seconds).
+   The UUID is found via `sudo blkid`.
+
+```bash
+sudo vim /etc/default/hd-idle
+```
+
+```
+# Uncomment and update this line to enable the utility
+START_HD_IDLE=true
+
+# Uncomment and update this line to configure the idle timeout value
+HD_IDLE_OPTS="-i 0 -a /dev/disk/by-uuid/<DRIVE-UUID> -i 600"
+```
+
+3. Start the `hd-idle` service.
+
+```bash
+systemctl unmask hd-idle.service
+systemctl start hd-idle
+systemctl enable hd-idle
+```
 
 ### Mounting a network share on host and Docker containers
 
