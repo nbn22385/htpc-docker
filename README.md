@@ -554,7 +554,7 @@ sudo iptables -t mangle -F
 * [Enable USB hard drive idle mode](#enable-USB-hard-drive-idle-mode)
 * [Mounting a network share on host and Docker containers](#mounting-a-network-share-on-host-and-docker-containers)
 * [Disable laptop suspend when lid is closed](#disable-laptop-suspend-when-lid-is-closed)
-* [Restart on a schedule](#restart-on-a-schedule)
+* [Restart host on a schedule](#restart-host-on-a-schedule)
 
 ### Mounting an external USB disk on host and Docker containers
 
@@ -619,7 +619,7 @@ settings.***
 - `Categories > tv > Save Path`: `/usb/torrents/tv`
 
 **Note**: if using VueTorrent UI, you might have to switch back to the default
-UI to set the category paths
+UI to update the category paths
 
 #### SABnzbd
 
@@ -694,19 +694,19 @@ systemctl enable hd-idle
 ### Mounting a network share on host and Docker containers
 
 **Note**: This will result in non-optimal copying/moving due to hardlinks not
-functioning across filesystems/shares.
+functioning across filesystems/shares. For this reason, I am using a USB hard
+drive directly connected to the host PC rather than this method, but leaving
+these steps here for reference.
 
-In this example, I have an external USB hard drive connected to my router,
-which is shared as an SMB share on the network. Note: I could not get the
-credentials working and resorted to allowing any connection from within the
-network (working to fix).
+This example assumes a USB hard drive is connected to the router's USB port,
+and is shared as an SMB share on the network.
 
 1. On the host, install `cifs` and create the directory to be used
    as the mount point
 
 ```bash
 sudo apt install cifs-utils -y
-sudo mkdir /mnt/elements # directory that will act as the mount point for the SMB share
+sudo mkdir /mnt/smb-share # directory that will act as the mount point for the SMB share
 ```
 
 3. Edit the fstab file to automount the network share on boot (and after network is up)
@@ -717,16 +717,16 @@ sudo vim /etc/fstab
 
 ```bash
 # <SHARE-IP>/<DIRECTORY>  <MOUNT-POINT>   <TYPE> <OPTIONS>                <BACKUP> <FSCK>
-//192.168.29.1/Elements   /mnt/elements   cifs   _netdevuid=nate,vers=1.0 0        0
+//192.168.29.1/usb-drive  /mnt/smb-share  cifs   _netdevuid=nate,vers=1.0 0        0
 ```
 
 2. In Plex, add the shared directory(s) to your library. In this example, I
-   mapped the shared directory to `/elements` in the container.
+   mapped the shared directory to `/smb-share` in the container.
 
 ```yml
 plex:
   volumes:
-    - /mnt/elements:/elements
+    - /mnt/smb-share:/smb-share
 ```
 
 ### Disable laptop suspend when lid is closed
