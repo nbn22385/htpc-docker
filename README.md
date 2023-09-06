@@ -35,15 +35,9 @@ Compose.
 | <img src="https://raw.githubusercontent.com/Prowlarr/Prowlarr/develop/frontend/src/Content/Images/Icons/favicon.ico" alt="prowlarr" width="12"/> Prowlarr | Manages Torrent and Usenet indexers, integrates with Radarr/Sonarr |
 | <img src="https://raw.githubusercontent.com/morpheus65535/bazarr/master/frontend/public/images/favicon.ico" alt="bazarr" width="12"/> Bazarr | Manages and downloads subtitles, integrates with Radarr/Sonarr |
 
-The remainder of this guide assumes a server running a Debian-based operating
-system. My current setup is a 2013 HP Pavillion G6 with an Intel Core i5-3230M
-and 6GB of RAM running Xubuntu 22.04.
-
-<!--
 The remainder of this guide assumes the host server is running a Debian-based
 operating system. My current setup is a Dell Optiplex 5060 Micro with an Intel
 Core i5-8500T and 16GB of RAM running Ubuntu Server 22.04.
--->
 
 ## Prerequisites
 
@@ -117,7 +111,7 @@ with to connect from.
 ## Set up directories
 
 **Note**: The instructions below are designed for local storage on the host
-filesystem. To store media on network shares or USB drives, see the [Additional
+filesystem. To store media on a network share or USB drive, see the [Additional
 notes](#additional-notes) section. It is still recommended to store the
 `/data/config` directory on the host filesystem.
 
@@ -186,6 +180,15 @@ your provider.
   [this repository](https://github.com/hsand/pia-wg#linux-debianubuntu)
   to generate a configuration file. Once generated, ensure the output file is
   named `wg0.conf`, then copy it to the directory noted above.
+- Update the `[Interface]` section of your config file to
+  allow incoming traffic from the host (update the `HOMENET` IP as needed for
+your network) ([Source](https://www.linuxserver.io/blog/routing-docker-host-and-container-traffic-through-wireguard#routing-docker-container-traffic-through-wireguard)):
+  ```conf
+  [Interface]
+  # DNS: <I had to remove this line to reach the web interface>
+  PostUp = DROUTE=$(ip route | grep default | awk '{print $3}'); HOMENET=192.168.29.0/24; HOMENET2=10.0.0.0/8; HOMENET3=172.16.0.0/12; ip route add $HOMENET3 via $DROUTE;ip route add $HOMENET2 via $DROUTE; ip route add $HOMENET via $DROUTE;iptables -I OUTPUT -d $HOMENET -j ACCEPT;iptables -A OUTPUT -d $HOMENET2 -j ACCEPT; iptables -A OUTPUT -d $HOMENET3 -j ACCEPT;  iptables -A OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
+  PreDown = HOMENET=192.168.29.0/24; HOMENET2=10.0.0.0/8; HOMENET3=172.16.0.0/12; ip route delete $HOMENET; ip route delete $HOMENET2; ip route delete $HOMENET3; iptables -D OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT; iptables -D OUTPUT -d $HOMENET -j ACCEPT; iptables -D OUTPUT -d $HOMENET2 -j ACCEPT; iptables -D OUTPUT -d $HOMENET3 -j ACCEPT
+  ```
 
 ### Start the services
 
@@ -468,10 +471,12 @@ Prowlarr](https://wiki.servarr.com/prowlarr/quick-start-guide).
   - `Add Indexer`
     - Search for an indexer and click to configure it
     - :ballot_box_with_check: Enable
-    - For Usenet indexers:
+    - Torrent indexers: 1337x, LimeTorrents, TorrentDownload, YTS
+    - Usenet indexers (require accounts): abNZB, altHUB, DrunkenSlug
       - Sync Profile: **No RSS** (prevents hitting indexer API limits)
       - API Key: Get the API key from your indexer's settings page
-      - Query Limit: **25** (Free indexers typically allow 25 queries/day)
+      - Query/Grab Limit: See [this page](https://www.reddit.com/r/usenet/wiki/indexers)
+        for indexer query and grab limits
 
 </details>
 
@@ -564,7 +569,7 @@ my host PC.
 1. On the host PC, create a directory for the mount point.
 
 ```bash
-sudo mkdir /media/usb
+sudo mkdir /mnt/usb
 ```
 
 2. Get the UUID of the USB drive. Look for an entry that matches your drive.
@@ -586,7 +591,7 @@ sudo vim /etc/fstab
 ```
 
 ```bash
-UUID=ABCD1234 /media/usb ntfs defaults,noatime,nofail,umask=000 0 2
+UUID=ABCD1234 /mnt/usb ntfs defaults,noatime,nofail,umask=000 0 2
 ```
 
 4. Mount the drive and ensure it is available at the mount point.
@@ -594,14 +599,14 @@ UUID=ABCD1234 /media/usb ntfs defaults,noatime,nofail,umask=000 0 2
 ```bash
 sudo mount -a
 
-ls /media/usb
+ls /mnt/usb
 ```
 
 5. Set up download paths on the drive to be used by the services.
 
 ```bash
 # create destination directories on the drive
-DATA_DIR=/media/usb
+DATA_DIR=/mnt/usb
 sudo mkdir -pv ${DATA_DIR}/{torrents,usenet,media}/{tv,movies}
 sudo chmod -Rv 775 ${DATA_DIR}/
 sudo chown -Rv ${USER}:${USER} ${DATA_DIR}/
@@ -757,4 +762,19 @@ sudo crontab -e
 
 # verify the rule was saved
 sudo crontab -l
+```
+
+### Disable Wi-Fi radio
+
+Find the wlan adapter name, then disable
+the radio:
+
+```bash
+sudo lshw -C network
+
+# example output:
+# logical name: <wireless adapter name>
+
+sudo apt install net-tools
+sudo ifconfig <wireless adapter name> down
 ```
