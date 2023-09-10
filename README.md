@@ -11,6 +11,7 @@
   + [Start the services](#start-the-services)
   + [Access web UI for services](#access-web-ui-for-services)
   + [Manual service configuration](#manual-service-configuration)
+* [Monitoring](#monitoring)
 * [Helpful commands](#helpful-commands)
 * [Troubleshooting](#troubleshooting)
 * [Additional notes](#additional-notes)
@@ -509,6 +510,23 @@ qBittorrent](https://trash-guides.info/Bazarr/Setup-Guide/).
     - API Key: **Radarr API key from its `Settings > General` page**
 
 </details>
+
+## Monitoring
+
+A monitoring stack is included using Prometheus/Grafana with data collected via
+cAdvisor and node-exporter. By default the monitoring services are deployed by
+including the `monitoring/docker-compose.yml` file.
+
+| Service | Description |
+| ------- | ----------- |
+| <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Prometheus_software_logo.svg/2066px-Prometheus_software_logo.svg.png" alt="prometheus" width="12"/>  Prometheus | Monitoring system & time series database |
+| <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Grafana_icon.svg/351px-Grafana_icon.svg.png" alt="grafana" width="12"/>  Grafana | Analytics and interactive visualization web application |
+| <img src="https://neellik.com/wp-content/uploads/2022/03/cadvisor.png" alt="cAdvisor" width="12"/>  cAdvisor | Provides resource usage and performance characteristics of running containers |
+| <img src="https://prometheus.io/assets/favicons/android-chrome-192x192.png" alt="node-exporter" width="12"/> Node exporter | Exposes a wide variety of hardware- and kernel-related metrics |
+
+The Grafana dashboard is accessible at `http://<server-ip>:3000`.
+
+<img src="https://i.imgur.com/ZfosGIN.png" alt="drawing" width="400"/>
 
 ## Helpful commands
 
