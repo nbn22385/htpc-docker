@@ -11,6 +11,7 @@
   + [Start the services](#start-the-services)
   + [Access web UI for services](#access-web-ui-for-services)
   + [Manual service configuration](#manual-service-configuration)
+* [Monitoring](#monitoring)
 * [Helpful commands](#helpful-commands)
 * [Troubleshooting](#troubleshooting)
 * [Additional notes](#additional-notes)
@@ -509,6 +510,16 @@ qBittorrent](https://trash-guides.info/Bazarr/Setup-Guide/).
     - API Key: **Radarr API key from its `Settings > General` page**
 
 </details>
+
+## Monitoring
+
+A monitoring stack is included using Prometheus/Grafana with data collected via
+cAdvisor and node-exporter. By default the monitoring services are deployed by
+including the `monitoring/docker-compose.yml` file.
+
+The Grafana dashboard is accessible at `http://<server-ip>:3000`.
+
+<img src="https://i.imgur.com/ZfosGIN.png" alt="drawing" width="400"/>
 
 ## Helpful commands
 
