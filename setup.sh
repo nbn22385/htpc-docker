@@ -6,7 +6,7 @@ CONFIG_DIR=/config
 DATA_DIR=/mnt/usb
 
 # Make directories
-sudo mkdir -pv ${CONFIG_DIR}/{bazarr,overseerr,plex,prowlarr,qbittorrent,radarr,sabnzbd,sonarr,wireguard}
+sudo mkdir -pv ${CONFIG_DIR}/{bazarr,grafana,overseerr,plex,prowlarr,qbittorrent,radarr,sabnzbd,sonarr,wireguard}
 sudo mkdir -pv ${DATA_DIR}/{torrents,usenet,media}/{tv,movies}
 
 # Set permissions
