@@ -578,6 +578,8 @@ sudo iptables -t mangle -F
 * [Mounting a network share on host and Docker containers](#mounting-a-network-share-on-host-and-docker-containers)
 * [Disable laptop suspend when lid is closed](#disable-laptop-suspend-when-lid-is-closed)
 * [Restart host on a schedule](#restart-host-on-a-schedule)
+* [Disable Wi-Fi radio](#disable-wi-fi-radio)
+* [Useful packages](#useful-packages)
 
 ### Mounting an external USB disk on host and Docker containers
 
@@ -795,4 +797,22 @@ sudo lshw -C network
 
 sudo apt install net-tools
 sudo ifconfig <wireless adapter name> down
+```
+
+### Useful packages
+
+```bash
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+tar xf lazygit.tar.gz lazygit
+sudo install lazygit /usr/local/bin
+
+sudo apt install -y
+  unzip
+  ripgrip
+  fd-find
+  net-tools
+  tree
+
+curl -L https://bit.ly/glances | /bin/bash
 ```
