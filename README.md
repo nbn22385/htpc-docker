@@ -229,8 +229,10 @@ anything else as needed.
 * [Sonarr](#sonarr)
 * [Prowlarr](#prowlarr)
 * [Bazarr](#bazarr)
+* [Overseerr](#overseerr)
+* [Tautulli](#tautulli)
 
-#### Plex
+#### Plex<!--{{{-->
 
 These custom settings are adapted from [TRaSH Guide for
 Plex](https://trash-guides.info/Plex/Tips/Plex-media-server/).
@@ -262,8 +264,9 @@ Plex](https://trash-guides.info/Plex/Tips/Plex-media-server/).
       - `Edit Library > Add Folders`
         - Ensure `/media/tv` is listed
 </details>
+<!-- }}} -->
 
-#### qBittorrent
+#### qBittorrent<!--{{{-->
 
 These custom settings are adapted from [TRaSH Guide for
 qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/).
@@ -314,8 +317,9 @@ Click the :floppy_disk: icon to apply the changes. Then (optionally) apply the c
           ```
 
 </details>
+<!-- }}} -->
 
-#### SABnzbd
+#### SABnzbd<!--{{{-->
 
 These custom settings are adapted from [TRaSH Guide for
 SABnzbd](https://trash-guides.info/Downloaders/SABnzbd/Basic-Setup/).
@@ -342,8 +346,9 @@ SABnzbd](https://trash-guides.info/Downloaders/SABnzbd/Basic-Setup/).
         - Note: This is necessary to allow access from Radarr/Sonarr
 
 </details>
+<!-- }}} -->
 
-#### Radarr
+#### Radarr<!--{{{-->
 
 These custom settings are adapted from [TRaSH Guide for
 Radarr](https://trash-guides.info/Radarr/).
@@ -386,8 +391,9 @@ Radarr](https://trash-guides.info/Radarr/).
     - Click `Save`
 
 </details>
+<!-- }}} -->
 
-#### Sonarr
+#### Sonarr<!--{{{-->
 
 These custom settings are adapted from [TRaSH Guide for
 Sonarr](https://trash-guides.info/Sonarr/).
@@ -426,8 +432,9 @@ Sonarr](https://trash-guides.info/Sonarr/).
     - Click `Save`
 
 </details>
+<!-- }}} -->
 
-#### Prowlarr
+#### Prowlarr<!--{{{-->
 
 These custom settings are adapted from [Servarr Guide for
 Prowlarr](https://wiki.servarr.com/prowlarr/quick-start-guide).
@@ -482,8 +489,9 @@ Prowlarr](https://wiki.servarr.com/prowlarr/quick-start-guide).
         for indexer query and grab limits
 
 </details>
+<!-- }}} -->
 
-#### Bazarr
+#### Bazarr<!--{{{-->
 
 These custom settings are adapted from [TRaSH Guide for
 qBittorrent](https://trash-guides.info/Bazarr/Setup-Guide/).
@@ -513,6 +521,43 @@ qBittorrent](https://trash-guides.info/Bazarr/Setup-Guide/).
     - API Key: **Radarr API key from its `Settings > General` page**
 
 </details>
+<!-- }}} -->
+
+#### Overseerr<!--{{{-->
+
+<details>
+  <summary>Custom settings</summary>
+
+- `Settings`
+  - `Users > User Settings`
+    - :ballot_box_with_check: Enable New Plex Sign-In
+    - Global Movie Request Limit: set if desired
+    - Global Series Request Limit: set if desired
+  - `Plex`
+    - `Plex Settings`
+      - Server: Choose local Plex server (if not done during initial setup)
+      - Hostname/IP: Enter server IP (if not done during initial setup)
+    - `Plex Libraries`
+      - Enable Movies and TV Shows (if not done during initial setup)
+    - `Tautulli Settings` (optional)
+      - Hostname/IP: Enter server IP (if not done during initial setup)
+      - API Key: **Tautulli API key from its `Settings > Web Interface` page**
+  - `Services`
+    - `Radarr`
+      - :ballot_box_with_check: Default Server
+      - Hostname/IP: **radarr**
+      - API Key: **Radarr API key from its `Settings > General` page**
+      - Set `Quality Profile` and `Root Folder` as desired
+    - `Sonarr`
+      - :ballot_box_with_check: Default Server
+      - Hostname/IP: **sonarr**
+      - API Key: **Sonarr API key from its `Settings > General` page**
+      - Set `Quality Profile` and `Root Folder` as desired
+  - `Notifications`
+    - Configure desired notification agent. I used email to SMS.
+
+</details>
+<!-- }}} -->
 
 ## Monitoring
 
