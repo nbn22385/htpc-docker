@@ -494,7 +494,8 @@ qBittorrent](https://trash-guides.info/Bazarr/Setup-Guide/).
     - `Subtitles Language > Languages Filter`
       - Add `English` to the list
     - `Language Profiles`
-      - Add a new profile and choose the English language
+      - Add a new profile and choose the `English (Normal or hearing impaired)` language
+      - You can also add `English (Forced)`
     - `Default Settings`
       - :ballot_box_with_check: Series
         - Profile: **English profile name**
