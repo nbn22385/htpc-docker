@@ -35,6 +35,8 @@ Compose.
 | <img src="https://raw.githubusercontent.com/Sonarr/sonarr.github.io/master/img/favicon.ico" alt="sonarr" width="12"/> Sonarr | TV show collection manager, integrates with qBittorrent/SABnzbd |
 | <img src="https://raw.githubusercontent.com/Prowlarr/Prowlarr/develop/frontend/src/Content/Images/Icons/favicon.ico" alt="prowlarr" width="12"/> Prowlarr | Manages Torrent and Usenet indexers, integrates with Radarr/Sonarr |
 | <img src="https://raw.githubusercontent.com/morpheus65535/bazarr/master/frontend/public/images/favicon.ico" alt="bazarr" width="12"/> Bazarr | Manages and downloads subtitles, integrates with Radarr/Sonarr |
+| <img src="https://overseerr.dev/favicon.ico" alt="overseerr" width="12"/> Overseerr | Request management and media discovery tool for the Plex ecosystem |
+| <img src="https://raw.githubusercontent.com/Tautulli/Tautulli/master/data/interfaces/default/images/favicon/favicon.ico" alt="tautulli" width="12"/> Tautulli | Monitor Plex media server and track various statistics |
 
 The remainder of this guide assumes the host server is running a Debian-based
 operating system. My current setup is a Dell Optiplex 5060 Micro with an Intel
