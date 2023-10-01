@@ -7,9 +7,23 @@
 
 ---
 version: "3.2"
+
 services:
 
-  prometheus:
+  homarr: # {{{
+    container_name: homarr
+    image: ghcr.io/ajnart/homarr:latest
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - ${CONFIG_ROOT}/homarr/configs:/app/data/configs
+      - ${CONFIG_ROOT}/homarr/icons:/app/public/icons
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - '7575:7575' # }}}
+
+  prometheus: # {{{
     image: prom/prometheus:latest
     container_name: prometheus
     ports:
@@ -20,9 +34,9 @@ services:
       - ./prometheus:/etc/prometheus
     depends_on:
       - cadvisor
-      - node-exporter
+      - node-exporter # }}}
 
-  grafana:
+  grafana: # {{{
     image: grafana/grafana
     container_name: grafana
     user: "1000"
@@ -36,9 +50,9 @@ services:
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
     depends_on:
-      - prometheus
+      - prometheus # }}}
 
-  cadvisor:
+  cadvisor: # {{{
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
     ports:
@@ -51,9 +65,9 @@ services:
       - /dev/disk/:/dev/disk:ro
     command:
       - '--docker_only=true'
-      - '--housekeeping_interval=30s'
+      - '--housekeeping_interval=30s' # }}}
 
-  node-exporter:
+  node-exporter: # {{{
     image: prom/node-exporter:latest
     container_name: node-exporter
     volumes:
@@ -69,4 +83,6 @@ services:
       - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
     ports:
       - 9100:9100
-    restart: always
+    restart: always # }}}
+
+  # vim:fdm=marker
