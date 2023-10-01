@@ -1,12 +1,43 @@
 ---
 version: "3.2"
 
-include:
-  - monitoring/docker-compose.yml
+include: # {{{
+  - monitoring/docker-compose.yml # }}}
 
 services:
 
-  wireguard:
+  nginx-proxy-manager: # {{{
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginx-proxy-manager
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - TP_THEME=${THEME}
+    ports:
+      - '80:80'   # Public HTTP Port
+      - '443:443' # Public HTTPS Port
+      - '81:81'   # Admin Web Port
+    volumes:
+      - ${CONFIG_ROOT}/nginx/data:/data
+      - ${CONFIG_ROOT}/nginx/letsencrypt:/etc/letsencrypt
+      - ${CONFIG_ROOT}/nginx/98-themepark:/etc/cont-init.d/98-themepark
+    restart: unless-stopped # }}}
+
+  duckdns: # {{{
+    image: lscr.io/linuxserver/duckdns:latest
+    container_name: duckdns
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - SUBDOMAINS=novick
+      - TOKEN=5d30cb99-967d-4ab9-b9b1-fcaf7f9c5b5f
+    volumes:
+      - ${CONFIG_ROOT}/duckdns:/config
+    restart: unless-stopped # }}}
+
+  wireguard: # {{{
     image: lscr.io/linuxserver/wireguard:latest
     container_name: wireguard
     cap_add:
@@ -24,9 +55,9 @@ services:
       - "51820:51820/udp"
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
-    restart: unless-stopped
+    restart: unless-stopped # }}}
 
-  qbittorrent:
+  qbittorrent: # {{{
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
     network_mode: service:wireguard
@@ -39,9 +70,9 @@ services:
     volumes:
       - ${CONFIG_ROOT}/qbittorrent:/config
       - ${DATA_ROOT}/torrents:/data/torrents
-    restart: unless-stopped
+    restart: unless-stopped # }}}
 
-  sabnzbd:
+  sabnzbd: # {{{
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
     environment:
@@ -55,9 +86,9 @@ services:
       - ${DATA_ROOT}/usenet:/data/usenet
     ports:
       - "8081:8080" # web UI
-    restart: unless-stopped
+    restart: unless-stopped # }}}
 
-  plex:
+  plex: # {{{
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
     network_mode: host
@@ -71,9 +102,43 @@ services:
     volumes:
       - ${CONFIG_ROOT}/plex:/config
       - ${DATA_ROOT}/media:/data/media
-    restart: unless-stopped
+    restart: unless-stopped # }}}
 
-  prowlarr:
+  # jellyfin: # {{{
+  #   image: lscr.io/linuxserver/jellyfin:latest
+  #   container_name: jellyfin
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ${CONFIG_ROOT}/jellyfin:/config
+  #     - ${DATA_ROOT}/media:/data/media
+  #   devices:
+  #     - /dev/dri:/dev/dri
+  #   ports:
+  #     - 8096:8096     # HTTP web UI
+  #     - 8920:8920     # HTTPS web UI (optional)
+  #     - 7359:7359/udp # Jellyfin client discovery (optional)
+  #     - 1900:1900/udp # DLNA client discovery (optional)
+  #   restart: unless-stopped # }}}
+
+  tautulli: # {{{
+    image: lscr.io/linuxserver/tautulli:latest
+    container_name: tautulli
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:tautulli
+      - TP_THEME=${THEME}
+    volumes:
+      - ${CONFIG_ROOT}/tautulli:/config
+    ports:
+      - 8181:8181
+    restart: unless-stopped # }}}
+
+  prowlarr: # {{{
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
     environment:
@@ -86,9 +151,9 @@ services:
       - ${CONFIG_ROOT}/prowlarr:/config
     ports:
       - "9696:9696"
-    restart: unless-stopped
+    restart: unless-stopped # }}}
 
-  radarr:
+  radarr: # {{{
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     environment:
@@ -102,9 +167,9 @@ services:
       - ${DATA_ROOT}:/data
     ports:
       - "7878:7878"
-    restart: unless-stopped
+    restart: unless-stopped # }}}
 
-  sonarr:
+  sonarr: # {{{
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
     environment:
@@ -118,32 +183,35 @@ services:
       - ${DATA_ROOT}:/data
     ports:
       - "8989:8989"
-    restart: unless-stopped
+    restart: unless-stopped # }}}
 
-  # overseerr:
-  #   image: lscr.io/linuxserver/overseerr:latest
-  #   container_name: overseerr
-  #   network_mode: host
-  #   environment:
-  #     - PUID=${PUID}
-  #     - PGID=${PGID}
-  #     - TZ=${TZ}
-  #   volumes:
-  #     - ${CONFIG_ROOT}/overseer:/config
-  #   restart: unless-stopped
+  overseerr: # {{{
+    image: lscr.io/linuxserver/overseerr:latest
+    container_name: overseerr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${CONFIG_ROOT}/overseerr:/config
+    ports:
+      - "5055:5055"
+    restart: unless-stopped # }}}
 
-  # bazarr:
-  #   image: lscr.io/linuxserver/bazarr:latest
-  #   container_name: bazarr
-  #   environment:
-  #     - PUID=${PUID}
-  #     - PGID=${PGID}
-  #     - TZ=${TZ}
-  #     - DOCKER_MODS=ghcr.io/gilbn/theme.park:bazarr
-  #     - TP_THEME=${THEME}
-  #   volumes:
-  #     - ${CONFIG_ROOT}/bazarr:/config
-  #     - ${DATA_ROOT}/media:/data/media
-  #   ports:
-  #     - 6767:6767
-  #   restart: unless-stopped
+  bazarr: # {{{
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:bazarr
+      - TP_THEME=${THEME}
+    volumes:
+      - ${CONFIG_ROOT}/bazarr:/config
+      - ${DATA_ROOT}/media:/data/media
+    ports:
+      - 6767:6767
+    restart: unless-stopped # }}}
+  
+  # vim:fdm=marker
