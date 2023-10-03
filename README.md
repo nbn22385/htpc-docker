@@ -48,7 +48,7 @@ Core i5-8500T and 16GB of RAM running Ubuntu Server 22.04.
 * [Install SSH server](#install-ssh-server)
 * [Enable remote desktop](#enable-remote-desktop)
 
-### Install Docker engine
+### Install Docker engine<!--{{{-->
 
 Install using the convenience script:
 
@@ -65,8 +65,9 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker
 ```
+<!--}}}-->
 
-### Install SSH server
+### Install SSH server<!--{{{-->
 
 **Note**: Not required for Ubuntu Server when openssh-server was installed at
 setup time
@@ -88,8 +89,9 @@ Test the SSH connection by logging in from another computer
 ```bash
 ssh <host-username>@<host-ip>
 ```
+<!--}}}-->
 
-### Enable remote desktop
+### Enable remote desktop<!--{{{-->
 
 **Optional**
 
@@ -110,6 +112,7 @@ with to connect from.
 
 - Mac: [Microsoft Remote Desktop](https://apps.apple.com/us/app/microsoft-remote-desktop/id1295203466?mt=12)
 - Windows: [Microsoft Remote Desktop](https://apps.microsoft.com/store/detail/9WZDNCRFJ3PS?hl=en-us&gl=US&rtc=1)
+<!--}}}-->
 
 ## Set up directories
 
@@ -519,6 +522,27 @@ qBittorrent](https://trash-guides.info/Bazarr/Setup-Guide/).
   - `Radarr`
     - Address: **radarr**
     - API Key: **Radarr API key from its `Settings > General` page**
+  - `Scheduler`
+    - Sonarr/Radarr Sync: 24 Hours (all boxes)
+    - Disk Indexing: Manually (all boxes)
+    - Search and Upgrade Subtitles: 24 Hours (all boxes)
+
+</details>
+<!-- }}} -->
+
+#### Tautulli<!--{{{-->
+
+<details>
+  <summary>Custom settings</summary>
+
+- `Settings`
+  - `Homepage > Watch Statistics`
+    - I unchecked a bunch of these to clean up the homepage
+  - `Plex Media Server`
+    - Plex IP Address: Choose local Plex server (192.168.x.y)
+    - :ballot_box_with_check: Use secure connection
+  - `Notification Agents`
+    - Configure desired notification agent. I used email to SMS.
 
 </details>
 <!-- }}} -->
@@ -864,3 +888,6 @@ sudo apt install -y
 
 curl -L https://bit.ly/glances | /bin/bash
 ```
+
+# vim:fdm=marker
+
