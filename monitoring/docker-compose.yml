@@ -53,7 +53,7 @@ services:
       - prometheus # }}}
 
   cadvisor: # {{{
-    image: gcr.io/cadvisor/cadvisor:latest
+    image: gcr.io/cadvisor/cadvisor:v0.47.2
     container_name: cadvisor
     ports:
       - 9091:8080
@@ -65,7 +65,9 @@ services:
       - /dev/disk/:/dev/disk:ro
     command:
       - '--docker_only=true'
-      - '--housekeeping_interval=30s' # }}}
+      - '--enable_metrics=cpu,memory,network'
+      - '--housekeeping_interval=30s'
+      - '--store_container_labels=false' # }}}
 
   node-exporter: # {{{
     image: prom/node-exporter:latest
