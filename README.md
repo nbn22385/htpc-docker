@@ -16,7 +16,7 @@
 * [Troubleshooting](#troubleshooting)
 * [Additional notes](#additional-notes)
 
-## Overview
+## Overview<!--{{{-->
 
 This setup provides the ability to download media using BitTorrent (via
 qBittorrent with VPN support) and/or Usenet (via SABnzbd). All media
@@ -40,7 +40,7 @@ Compose.
 
 The remainder of this guide assumes the host server is running a Debian-based
 operating system. My current setup is a Dell Optiplex 5060 Micro with an Intel
-Core i5-8500T and 16GB of RAM running Ubuntu Server 22.04.
+Core i5-8500T and 16GB of RAM running Ubuntu Server 22.04.<!--}}}-->
 
 ## Prerequisites
 
@@ -114,7 +114,7 @@ with to connect from.
 - Windows: [Microsoft Remote Desktop](https://apps.microsoft.com/store/detail/9WZDNCRFJ3PS?hl=en-us&gl=US&rtc=1)
 <!--}}}-->
 
-## Set up directories
+## Set up directories<!--{{{-->
 
 **Note**: The instructions below are designed for local storage on the host
 filesystem. To store media on a network share or USB drive, see the [Additional
@@ -162,11 +162,11 @@ cd htpc-docker
     └── tv
 ```
 
-</details>
+</details> <!--}}}-->
 
 ## Set up services via Docker Compose
 
-### VPN configuration
+### VPN configuration<!--{{{-->
 
 **Optional (enabled by default)**
 
@@ -195,15 +195,17 @@ your network) ([Source](https://www.linuxserver.io/blog/routing-docker-host-and-
   PostUp = DROUTE=$(ip route | grep default | awk '{print $3}'); HOMENET=192.168.29.0/24; HOMENET2=10.0.0.0/8; HOMENET3=172.16.0.0/12; ip route add $HOMENET3 via $DROUTE;ip route add $HOMENET2 via $DROUTE; ip route add $HOMENET via $DROUTE;iptables -I OUTPUT -d $HOMENET -j ACCEPT;iptables -A OUTPUT -d $HOMENET2 -j ACCEPT; iptables -A OUTPUT -d $HOMENET3 -j ACCEPT;  iptables -A OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT
   PreDown = HOMENET=192.168.29.0/24; HOMENET2=10.0.0.0/8; HOMENET3=172.16.0.0/12; ip route delete $HOMENET; ip route delete $HOMENET2; ip route delete $HOMENET3; iptables -D OUTPUT ! -o %i -m mark ! --mark $(wg show %i fwmark) -m addrtype ! --dst-type LOCAL -j REJECT; iptables -D OUTPUT -d $HOMENET -j ACCEPT; iptables -D OUTPUT -d $HOMENET2 -j ACCEPT; iptables -D OUTPUT -d $HOMENET3 -j ACCEPT
   ```
+  <!--}}}-->
 
-### Start the services
+### Start the services<!--{{{-->
 
 ```bash
 cd /path/to/htpc-docker
 docker compose up -d
 ```
+<!--}}}-->
 
-### Access web UI for services
+### Access web UI for services<!--{{{-->
 
 Once all services are running, you can access each service's web UI using the
 URLs below:
@@ -217,6 +219,7 @@ URLs below:
 | Sonarr      | TV show manager  | http://`<server-ip>`:8989         |
 | Prowlarr    | Indexer manager  | http://`<server-ip>`:9696         |
 | Bazarr      | Subtitle manager | http://`<server-ip>`:6767         |
+<!--}}}-->
 
 ### Manual service configuration
 
@@ -598,11 +601,11 @@ including the `monitoring/docker-compose.yml` file.
 
 The Grafana dashboard is accessible at `http://<server-ip>:3000`.
 
-<img src="https://i.imgur.com/ZfosGIN.png" alt="drawing" width="400"/>
+![grafana](https://i.imgur.com/ZfosGIN.png)
 
 ## Helpful commands
 
-### Starting and stopping services:
+### Starting and stopping services:<!--{{{-->
 
 ```bash
 # Start services in the background (all by default, can specify individual service(s))
@@ -611,20 +614,23 @@ docker compose up [service-names] -d
 # Stop services (all by default, can specify individual service(s))
 docker compose down [service-names]
 ```
+<!--}}}-->
 
-### View logs for services:
+### View logs for services:<!--{{{-->
 
 ```bash
 docker compose logs <service-name>
 ```
+<!--}}}-->
 
-### Restart services and recreate volumes with recent updates:
+### Restart services and recreate volumes with recent updates:<!--{{{-->
 
 ```bash
 docker-compose up --renew-anon-volumes|-V
 ```
+<!--}}}-->
 
-### Update Docker images to their latest versions
+### Update Docker images to their latest versions<!--{{{-->
 
 ```
 docker compose down
@@ -632,16 +638,18 @@ docker compose pull
 docker compose up -d
 docker image prune
 ```
+<!--}}}-->
 
 ## Troubleshooting
 
-### qBittorrent: Can't access web UI from the netowrk
+### qBittorrent: Can't access web UI from the netowrk<!--{{{-->
 
 I was able to restore access by running this command after starting services:
 
 ```bash
 sudo iptables -t mangle -F
 ```
+<!--}}}-->
 
 ## Additional notes
 
@@ -653,7 +661,7 @@ sudo iptables -t mangle -F
 * [Disable Wi-Fi radio](#disable-wi-fi-radio)
 * [Useful packages](#useful-packages)
 
-### Mounting an external USB disk on host and Docker containers
+### Mounting an external USB disk on host and Docker containers<!--{{{-->
 
 In this example, I have an NTFS-formatted external USB hard drive connected to
 my host PC.
@@ -750,9 +758,9 @@ UI to update the category paths
 - `Series > Mass Editor > Select All`: Change Root Folder to
   `/usb/media/tv`, Allow moving files
 
-**Note**: you can remove any existing paths that are no longer needed
+**Note**: you can remove any existing paths that are no longer needed<!--}}}-->
 
-### Enable USB hard drive idle mode
+### Enable USB hard drive idle mode<!--{{{-->
 
 Some USB hard drives do not spin down after a period of time. This section
 describes how to enable the functionality manually.
@@ -787,8 +795,9 @@ systemctl unmask hd-idle.service
 systemctl start hd-idle
 systemctl enable hd-idle
 ```
+<!--}}}-->
 
-### Mounting a network share on host and Docker containers
+### Mounting a network share on host and Docker containers<!--{{{-->
 
 **Note**: This will result in non-optimal copying/moving due to hardlinks not
 functioning across filesystems/shares. For this reason, I am using a USB hard
@@ -825,8 +834,9 @@ plex:
   volumes:
     - /mnt/smb-share:/smb-share
 ```
+<!--}}}-->
 
-### Disable laptop suspend when lid is closed
+### Disable laptop suspend when lid is closed<!--{{{-->
 
 When using a laptop as a server, the system may suspend when the lid is closed.
 To prevent this, make the following modification and restart the computer.
@@ -841,8 +851,9 @@ Uncomment and edit the following lines:
 HandleLidSwitch=ignore
 HandleLidSwitchExternalPower=ignore
 ```
+<!--}}}-->
 
-### Restart host on a schedule
+### Restart host on a schedule<!--{{{-->
 
 I set the host PC to restart every Sunday at 4 AM with a Cron job
 
@@ -855,8 +866,9 @@ sudo crontab -e
 # verify the rule was saved
 sudo crontab -l
 ```
+<!--}}}-->
 
-### Disable Wi-Fi radio
+### Disable Wi-Fi radio<!--{{{-->
 
 Find the wlan adapter name, then disable
 the radio:
@@ -870,8 +882,9 @@ sudo lshw -C network
 sudo apt install net-tools
 sudo ifconfig <wireless adapter name> down
 ```
+<!--}}}-->
 
-### Useful packages
+### Useful packages<!--{{{-->
 
 ```bash
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
@@ -888,6 +901,6 @@ sudo apt install -y
 
 curl -L https://bit.ly/glances | /bin/bash
 ```
+<!--}}}-->
 
-# vim:fdm=marker
-
+<!-- vim:fdm=marker -->
