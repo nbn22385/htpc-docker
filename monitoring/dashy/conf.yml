@@ -1,0 +1,184 @@
+appConfig:
+  theme: nord
+  layout: horizontal
+  iconSize: large
+  language: en
+  startingView: default
+  defaultOpeningMethod: newtab
+  statusCheck: true
+  statusCheckInterval: 0
+  faviconApi: allesedv
+  routingMode: history
+  enableMultiTasking: false
+  widgetsAlwaysUseProxy: false
+  webSearch:
+    disableWebSearch: true
+    searchEngine: duckduckgo
+    openingMethod: newtab
+    searchBangs: {}
+  enableFontAwesome: true
+  enableMaterialDesignIcons: false
+  hideComponents:
+    hideHeading: false
+    hideNav: false
+    hideSearch: true
+    hideSettings: false
+    hideFooter: true
+  auth:
+    enableGuestAccess: false
+    users: []
+    enableKeycloak: false
+  showSplashScreen: false
+  preventWriteToDisk: false
+  preventLocalSave: false
+  disableConfiguration: false
+  disableConfigurationForNonAdmin: false
+  allowConfigEdit: true
+  enableServiceWorker: false
+  disableContextMenu: false
+  disableUpdateChecks: false
+  disableSmartSort: false
+  enableErrorReporting: false
+pageInfo:
+  title: NATEFLIX
+  description: ''
+  navLinks:
+    - title: GitHub
+      path: https://github.com/nbn22385/htpc-docker
+      target: newtab
+    - title: Documentation
+      path: https://dashy.to/docs
+      target: newtab
+  footerText: ''
+sections:
+  - name: Services
+    icon: fas fa-server
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
+      - title: Plex
+        icon: hl-plex
+        url: http://ubuntu-server.local:32400/web
+        id: 0_827_plex
+      - title: Radarr
+        icon: hl-radarr
+        url: http://ubuntu-server.local:7878
+        id: 1_827_radarr
+      - title: Sonarr
+        icon: hl-sonarr
+        url: http://ubuntu-server.local:8989
+        id: 2_827_sonarr
+      - title: SABnzbd
+        icon: hl-sabnzbd
+        url: http://ubuntu-server.local:8081
+        id: 3_827_sabnzbd
+      - title: qBittorrent
+        icon: hl-qbittorrent
+        statusCheckUrl: http://wireguard:8080
+        url: http://ubuntu-server.local:8080
+        id: 4_827_qbittorrent
+      - title: Prowlarr
+        description: ''
+        icon: hl-prowlarr
+        url: http://ubuntu-server.local:9696
+        id: 5_827_prowlarr
+      - title: Grafana
+        icon: hl-grafana
+        url: http://192.168.29.200:3000
+        id: 0_1062_grafana
+      - title: Prometheus
+        icon: hl-prometheus
+        url: http://ubuntu-server.local:9090
+        id: 1_1062_prometheus
+      - title: cAdvisor
+        icon: hl-cadvisor
+        url: http://ubuntu-server.local:9091
+        id: 2_1062_cadvisor
+      - title: NPM
+        icon: hl-nginx-proxy-manager
+        url: http://ubuntu-server.local:81
+        id: 3_1062_npm
+  - name: CPU
+    icon: fas fa-microchip
+    displayData:
+      sortBy: default
+      rows: 2
+      cols: 2
+      collapsed: false
+      hideForGuests: false
+    widgets:
+      - type: gl-current-cpu
+        options:
+          hostname: http://192.168.29.200:61208
+        id: 0_727_glcurrentcpu
+      - type: gl-cpu-history
+        options:
+          hostname: http://192.168.29.200:61208
+          limit: 60
+        id: 1_727_glcpuhistory
+      # - type: gl-current-mem
+      #   options:
+      #     hostname: http://192.168.29.200:61208
+      #   id: 2_727_glcurrentmem
+      # - type: gl-disk-space
+      #   options:
+      #     hostname: http://192.168.29.200:61208
+      #   id: 3_727_gldiskspace
+      # - type: gl-network-traffic
+      #   options:
+      #     hostname: http://192.168.29.200:61208
+      #     limit: 500
+      #   id: 4_727_glnetworktraffic
+  - name: Memory
+    icon: fas fa-memory
+    displayData:
+      sortBy: default
+      rows: 2
+      cols: 2
+      collapsed: false
+      hideForGuests: false
+    widgets:
+      - type: gl-current-mem
+        options:
+          hostname: http://192.168.29.200:61208
+        id: 2_727_glcurrentmem
+      - type: gl-mem-history
+        options:
+          hostname: http://192.168.29.200:61208
+          limit: 80
+  - name: Network
+    icon: fas fa-network-wired
+    displayData:
+      sortBy: default
+      rows: 2
+      cols: 2
+      collapsed: false
+      hideForGuests: false
+    widgets:
+      - type: gl-network-interfaces
+        options:
+          hostname: http://192.168.29.200:61208
+      - type: gl-network-traffic
+        options:
+          hostname: http://192.168.29.200:61208
+          limit: 500
+        id: 4_727_glnetworktraffic
+  - name: Disk
+    icon: fas fa-database
+    displayData:
+      sortBy: default
+      rows: 2
+      cols: 2
+      collapsed: false
+      hideForGuests: false
+    widgets:
+      - type: gl-disk-space
+        options:
+          hostname: http://192.168.29.200:61208
+      - type: gl-disk-io
+        options:
+          hostname: http://192.168.29.200:61208
