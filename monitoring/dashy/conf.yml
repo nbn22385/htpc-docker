@@ -63,45 +63,47 @@ sections:
       - title: Plex
         icon: hl-plex
         url: http://ubuntu-server.local:32400/web
-        id: 0_827_plex
+      - title: Overseerr
+        description: ''
+        icon: hl-overseerr
+        url: http://ubuntu-server.local:5055
       - title: Radarr
         icon: hl-radarr
         url: http://ubuntu-server.local:7878
-        id: 1_827_radarr
       - title: Sonarr
         icon: hl-sonarr
         url: http://ubuntu-server.local:8989
-        id: 2_827_sonarr
       - title: SABnzbd
         icon: hl-sabnzbd
         url: http://ubuntu-server.local:8081
-        id: 3_827_sabnzbd
       - title: qBittorrent
         icon: hl-qbittorrent
-        statusCheckUrl: http://wireguard:8080
         url: http://ubuntu-server.local:8080
-        id: 4_827_qbittorrent
       - title: Prowlarr
         description: ''
         icon: hl-prowlarr
         url: http://ubuntu-server.local:9696
-        id: 5_827_prowlarr
+      - title: Bazarr
+        description: ''
+        icon: hl-bazarr
+        url: http://ubuntu-server.local:6767
+      - title: Tautulli
+        description: ''
+        icon: hl-tautulli
+        url: http://ubuntu-server.local:8181
+      # monitoring
       - title: Grafana
         icon: hl-grafana
         url: http://192.168.29.200:3000
-        id: 0_1062_grafana
       - title: Prometheus
         icon: hl-prometheus
         url: http://ubuntu-server.local:9090
-        id: 1_1062_prometheus
       - title: cAdvisor
         icon: hl-cadvisor
         url: http://ubuntu-server.local:9091
-        id: 2_1062_cadvisor
       - title: NPM
         icon: hl-nginx-proxy-manager
         url: http://ubuntu-server.local:81
-        id: 3_1062_npm
   - name: CPU
     icon: fas fa-microchip
     displayData:
@@ -110,29 +112,19 @@ sections:
       cols: 2
       collapsed: false
       hideForGuests: false
+      # cutToHeight: true
+      # itemSize: small
+      # sectionLayout: grid
+      # itemCountX: 2
+      # itemCountY: 2
     widgets:
       - type: gl-current-cpu
         options:
           hostname: http://192.168.29.200:61208
-        id: 0_727_glcurrentcpu
       - type: gl-cpu-history
         options:
           hostname: http://192.168.29.200:61208
           limit: 60
-        id: 1_727_glcpuhistory
-      # - type: gl-current-mem
-      #   options:
-      #     hostname: http://192.168.29.200:61208
-      #   id: 2_727_glcurrentmem
-      # - type: gl-disk-space
-      #   options:
-      #     hostname: http://192.168.29.200:61208
-      #   id: 3_727_gldiskspace
-      # - type: gl-network-traffic
-      #   options:
-      #     hostname: http://192.168.29.200:61208
-      #     limit: 500
-      #   id: 4_727_glnetworktraffic
   - name: Memory
     icon: fas fa-memory
     displayData:
@@ -145,7 +137,6 @@ sections:
       - type: gl-current-mem
         options:
           hostname: http://192.168.29.200:61208
-        id: 2_727_glcurrentmem
       - type: gl-mem-history
         options:
           hostname: http://192.168.29.200:61208
@@ -166,7 +157,6 @@ sections:
         options:
           hostname: http://192.168.29.200:61208
           limit: 500
-        id: 4_727_glnetworktraffic
   - name: Disk
     icon: fas fa-database
     displayData:
