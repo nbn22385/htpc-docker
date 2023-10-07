@@ -43,14 +43,47 @@ pageInfo:
   title: NATEFLIX
   description: ''
   navLinks:
-    - title: GitHub
+    - title: Nateflix@GitHub
       path: https://github.com/nbn22385/htpc-docker
       target: newtab
-    - title: Documentation
+    - title: Dashy Docs
       path: https://dashy.to/docs
       target: newtab
   footerText: ''
 sections:
+  - name: Bookmarks
+    icon: fas fa-link
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
+      - title: YouTube
+        icon: hl-youtube
+        url: https://www.youtube.com/feed/subscriptions
+        statusCheck: false
+      - title: Slickdeals
+        icon: https://images.crunchbase.com/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/v1483635308/ehxtud4xwxzhisqcvij4.png
+        url: http://slickdeals.net/
+        statusCheck: false
+      - title: Calendar
+        icon: hl-google-calendar
+        url: https://calendar.google.com/
+        statusCheck: false
+      - title: discgolf
+        icon: hl-reddit
+        url: https://www.reddit.com/r/discgolf
+        statusCheck: false
+      - title: usenet
+        icon: hl-reddit
+        url: https://www.reddit.com/r/usenet
+        statusCheck: false
+      - title: homelab
+        icon: hl-reddit
+        url: https://www.reddit.com/r/homelab
+        statusCheck: false
   - name: Services
     icon: fas fa-server
     displayData:
@@ -94,7 +127,7 @@ sections:
       # monitoring
       - title: Grafana
         icon: hl-grafana
-        url: http://192.168.29.200:3000
+        url: http://ubuntu-server.local:3000
       - title: Prometheus
         icon: hl-prometheus
         url: http://ubuntu-server.local:9090
@@ -110,13 +143,8 @@ sections:
       sortBy: default
       rows: 2
       cols: 2
-      collapsed: false
+      collapsed: true
       hideForGuests: false
-      # cutToHeight: true
-      # itemSize: small
-      # sectionLayout: grid
-      # itemCountX: 2
-      # itemCountY: 2
     widgets:
       - type: gl-current-cpu
         options:
@@ -131,7 +159,7 @@ sections:
       sortBy: default
       rows: 2
       cols: 2
-      collapsed: false
+      collapsed: true
       hideForGuests: false
     widgets:
       - type: gl-current-mem
@@ -147,7 +175,7 @@ sections:
       sortBy: default
       rows: 2
       cols: 2
-      collapsed: false
+      collapsed: true
       hideForGuests: false
     widgets:
       - type: gl-network-interfaces
@@ -163,7 +191,7 @@ sections:
       sortBy: default
       rows: 2
       cols: 2
-      collapsed: false
+      collapsed: true
       hideForGuests: false
     widgets:
       - type: gl-disk-space
