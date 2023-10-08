@@ -6,12 +6,13 @@
   + [Install SSH server](#install-ssh-server)
   + [Enable remote desktop](#enable-remote-desktop)
 * [Set up directories](#set-up-directories)
-* [Set up services via Docker Compose](#set-up-services-via-docker-compose)
+* [Set up services](#set-up-services)
   + [VPN configuration](#vpn-configuration)
   + [Start the services](#start-the-services)
   + [Access web UI for services](#access-web-ui-for-services)
   + [Manual service configuration](#manual-service-configuration)
 * [Monitoring](#monitoring)
+* [Remote Access](#remote-access)
 * [Helpful commands](#helpful-commands)
 * [Troubleshooting](#troubleshooting)
 * [Additional notes](#additional-notes)
@@ -164,7 +165,13 @@ cd htpc-docker
 
 </details> <!--}}}-->
 
-## Set up services via Docker Compose
+## Set up services
+
+Services are managed via Docker using `docker-compose`.
+
+**Note:** The base paths for service configuration and data are set within the
+`.env` file. Review the `.env` file and set `CONFIG_ROOT` and `DATA_ROOT` to
+your preferred paths.
 
 ### VPN configuration<!--{{{-->
 
@@ -602,6 +609,57 @@ including the `monitoring/docker-compose.yml` file.
 The Grafana dashboard is accessible at `http://<server-ip>:3000`.
 
 ![grafana](https://i.imgur.com/ZfosGIN.png)
+
+## Remote access
+
+- Static IP management is handled through [DuckDNS](https://www.duckdns.org/).
+- Exposing services to the internet with SSL encryption is achieved through
+  [Ngnix Proxy Manager](https://nginxproxymanager.com/).
+
+### DuckDNS
+
+This service will keep your DuckDNS account in sync with your server's public
+IP address
+
+#### Create a DuckDNS account
+
+1. Create a free DuckDNS account
+1. Create a unique subdomain that will be used as an alias your server's public
+   IP address
+1. Retrieve the Token from the DuckDNS account homepage
+1. In `docker-compose.yml`, insert your token in the `TOKEN` field of the
+   `duckdns` service.
+
+### Nginx Proxy Manager
+
+This service will allow you to manage subdomains for external server access to
+your services, as well as manage access lists to the subdomains.
+
+The Nginx Proxy Manager dashboard is accessible at `http://<server-ip>:81`
+
+#### Create an access list
+
+1. On the `Access Lists` screen, click `Add Access List`
+  1. In the "Detail" tab, set a name and enable `Pass Auth to Host`
+  1. In the "Authorization" tab, set at least one username/password that will
+     be used to access Proxy Hosts
+  1. In the "Access" tab, set `allow` to `all`
+  1. Click `Save`
+
+#### Create proxy host(s)
+
+1. On the `Proxy Hosts` screen, click `Add Proxy Host`
+  1. In the `Domain Names` box, create a subdomain for your service using the
+     DuckDNS alias for your server. Example: `radarr.my-alias.duckdns.org`.
+  1. Set the IP of your server and exposed port of your service
+  1. Enable `Block Common Exploits`
+  1. Set the Access List to the one created above, or else your service will
+     publicly available (relies only on the service login, if any, for
+     security)
+  1. In the "SSL" tab, select "Request a new SSL Certificate".
+  1. Enable "Force SSL" and create a new certificate
+
+![nginx-host](https://i.imgur.com/CApw6rL.png)
 
 ## Helpful commands
 
