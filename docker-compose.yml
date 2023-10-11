@@ -205,8 +205,6 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-      - DOCKER_MODS=ghcr.io/gilbn/theme.park:bazarr
-      - TP_THEME=${THEME}
     volumes:
       - ${CONFIG_ROOT}/bazarr:/config
       - ${DATA_ROOT}/media:/data/media

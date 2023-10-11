@@ -526,6 +526,8 @@ qBittorrent](https://trash-guides.info/Bazarr/Setup-Guide/).
         - Profile: **English profile name**
   - `Providers`
     - Add: **OpenSubtitles.com, Embedded Subtitles, subf2m.co**
+    - **Note**: Create an account on OpenSubtitles.com and input your login
+      information
   - `Sonarr`
     - Address: **sonarr**
     - API Key: **Sonarr API key from its `Settings > General` page**
@@ -612,28 +614,30 @@ The Grafana dashboard is accessible at `http://<server-ip>:3000`.
 
 ## Remote access
 
-- Static IP management is handled through [DuckDNS](https://www.duckdns.org/).
-- Exposing services to the internet with SSL encryption is achieved through
-  [Ngnix Proxy Manager](https://nginxproxymanager.com/).
+| Service | Description |
+| ------- | ----------- |
+| <img src="https://www.duckdns.org/favicon.ico" alt="duckdns" width="12"/>  DuckDNS | Static IP management |
+| <img src="https://raw.githubusercontent.com/NginxProxyManager/nginx-proxy-manager/develop/frontend/app-images/favicons/favicon.ico" alt="grafana" width="12"/>  Nginx Proxy Manager | Forwards traffic to your services running at home, including free SSL |
 
 ### DuckDNS
 
-This service will keep your DuckDNS account in sync with your server's public
-IP address
+The [DuckDNS](https://www.duckdns.org/) service automatically keeps your
+DuckDNS account in sync with your server's public IP address.
 
 #### Create a DuckDNS account
 
 1. Create a free DuckDNS account
-1. Create a unique subdomain that will be used as an alias your server's public
-   IP address
-1. Retrieve the Token from the DuckDNS account homepage
+1. Create a unique subdomain that will be used as an alias to your server's
+   public IP address
+1. Copy the Token from the DuckDNS account homepage
 1. In `docker-compose.yml`, insert your token in the `TOKEN` field of the
-   `duckdns` service.
+   `duckdns` service
 
 ### Nginx Proxy Manager
 
-This service will allow you to manage subdomains for external server access to
-your services, as well as manage access lists to the subdomains.
+The [Ngnix Proxy Manager](https://nginxproxymanager) service allows you to
+manage subdomains for external access to your services, as well as manage
+access lists to the subdomains.
 
 The Nginx Proxy Manager dashboard is accessible at `http://<server-ip>:81`
 
@@ -645,8 +649,27 @@ The Nginx Proxy Manager dashboard is accessible at `http://<server-ip>:81`
      be used to access Proxy Hosts
   1. In the "Access" tab, set `allow` to `all`
   1. Click `Save`
+  1. You can create multiple access lists, for example, one for admin only, and
+     one that allows other users
 
 #### Create proxy host(s)
+
+DuckDNS will route any wildcard "sub-sub-domain" (i.e.
+`service1.my-alias.duckdns.org`) to your server, so Nginx Proxy Manager can then
+handle routing sub-sub-domain requests to your individual services within your
+network. If this seems confusing, this diagram may help:
+
+```mermaid
+flowchart LR
+    classDef redbox fill:#ff0063
+    C(Client) -->|Request\nservice1.my-alias.duckdns.org| D(DuckDNS)
+    D -->|Request| N[Nginx Proxy\n Manager]
+    subgraph Home Server
+        N --> S1[Service1]:::redbox
+        N --> S2[Service2]
+        N --> S3[Service3]
+    end
+```
 
 1. On the `Proxy Hosts` screen, click `Add Proxy Host`
   1. In the `Domain Names` box, create a subdomain for your service using the
@@ -660,6 +683,16 @@ The Nginx Proxy Manager dashboard is accessible at `http://<server-ip>:81`
   1. Enable "Force SSL" and create a new certificate
 
 ![nginx-host](https://i.imgur.com/CApw6rL.png)
+
+### Router port fowarding
+
+In order to reach the server from the internet, configure your router to
+forward ports 80 (HTTP) and 443 (HTTPS) to the Nginx Proxy Manager service. See
+the [Nginx Proxy Manager
+documentation](https://nginxproxymanager.com/guide/#hosting-your-home-network)
+for more details.
+
+![port-forward](https://i.imgur.com/7Lzy6Yn.png)
 
 ## Helpful commands
 
