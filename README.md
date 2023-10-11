@@ -630,8 +630,10 @@ DuckDNS account in sync with your server's public IP address.
 1. Create a unique subdomain that will be used as an alias to your server's
    public IP address
 1. Copy the Token from the DuckDNS account homepage
-1. In `docker-compose.yml`, insert your token in the `TOKEN` field of the
-   `duckdns` service
+1. Write the token to a file that will be handled by Docker Secrets:
+   ```bash
+   printf "YOUR-TOKEN" > duckdns_token.secret
+   ```
 
 ### Nginx Proxy Manager
 

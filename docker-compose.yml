@@ -1,13 +1,33 @@
 ---
 version: "3.2"
 
+secrets: # {{{
+   duckdns_token:
+     file: ./duckdns_token.secret # }}}
+
 include: # {{{
   - monitoring/docker-compose.yml # }}}
 
 services:
 
+  duckdns: # {{{
+    image: lscr.io/linuxserver/duckdns:latest
+    container_name: duckdns
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - SUBDOMAINS=novick
+      - FILE__TOKEN=/run/secrets/duckdns_token
+      # - TOKEN=5d30cb99-967d-4ab9-b9b1-fcaf7f9c5b5f
+    volumes:
+      - ${CONFIG_ROOT}/duckdns:/config
+    restart: unless-stopped
+    secrets:
+      - duckdns_token # }}}
+
   nginx-proxy-manager: # {{{
-    image: 'jc21/nginx-proxy-manager:latest'
+    image: jc21/nginx-proxy-manager:latest
     container_name: nginx-proxy-manager
     environment:
       - PUID=${PUID}
@@ -22,19 +42,6 @@ services:
       - ${CONFIG_ROOT}/nginx/data:/data
       - ${CONFIG_ROOT}/nginx/letsencrypt:/etc/letsencrypt
       - ${CONFIG_ROOT}/nginx/98-themepark:/etc/cont-init.d/98-themepark
-    restart: unless-stopped # }}}
-
-  duckdns: # {{{
-    image: lscr.io/linuxserver/duckdns:latest
-    container_name: duckdns
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - SUBDOMAINS=novick
-      - TOKEN=5d30cb99-967d-4ab9-b9b1-fcaf7f9c5b5f
-    volumes:
-      - ${CONFIG_ROOT}/duckdns:/config
     restart: unless-stopped # }}}
 
   wireguard: # {{{
