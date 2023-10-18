@@ -614,7 +614,23 @@ qBittorrent](https://trash-guides.info/Bazarr/Setup-Guide/).
     - Plex IP Address: Choose local Plex server (192.168.x.y)
     - :ballot_box_with_check: Use secure connection
   - `Notification Agents`
-    - Configure desired notification agent. I used email to SMS.
+    - I am using Webhook notification agents along with
+      [ntfy.sh](https://ntfy.sh/). An example notification is shown below.
+      - `Add a new notification agent` > `Webhook`
+      - Webhook URL: `https://ntfy.sh`
+      - Webhook Method: `POST`
+      - Triggers: :ballot_box_with_check: `Playback Start` (or any other triggers you want)
+      - Data: `Playback Start` > `JSON Data`
+        ```json
+        {
+          "topic": "nateflix-info",
+          "icon": "{poster_url}",
+          "title": "{server_name}",
+          "message": "{user} started playing {title}{`str(' (S' + season_num00 + ':E' + episode_num00 + ')' if  media_type != 'movie' else '')`}\nDevice: {player}\nContainer: {container_decision!c} ({container!u}{`str(' → ' + stream_container if container_decision == 'transcode' else '' )`!u})\nVideo: {`str('Direct stream' if user_direct_streams > 0 else 'Direct play' if user_direct_plays > 0 else video_decision)`!c} ({video_codec!u}{`str(' → ' + stream_video_codec if video_decision == 'transcode' else '')`!u} {stream_video_full_resolution})\nAudio: {`str('Direct stream' if user_direct_streams > 0 else 'Direct play' if user_direct_plays > 0 else audio_decision)`!c} ({audio_codec!u}{`str(' → ' + stream_audio_codec if audio_decision == 'transcode' else '' )`!u} {stream_audio_channel_layout})\nBitrate: {`round(float(stream_bandwidth) / 1000, 1)`> Mbps}"
+        }
+        ```
+      - Note: `notify_text_eval = 1` must be manually enabled in the Tautulli
+        `config.ini` file to enable expressions.
 
 </details>
 <!-- }}} -->
