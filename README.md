@@ -40,8 +40,18 @@ Compose.
 | <img src="https://raw.githubusercontent.com/Tautulli/Tautulli/master/data/interfaces/default/images/favicon/favicon.ico" alt="tautulli" width="12"/> Tautulli | Monitor Plex media server and track various statistics |
 
 The remainder of this guide assumes the host server is running a Debian-based
-operating system. My current setup is a Dell Optiplex 5060 Micro with an Intel
-Core i5-8500T and 16GB of RAM running Ubuntu Server 22.04.<!--}}}-->
+operating system. My current setup is listed below:
+
+|                  |                            |
+|------------------|----------------------------|
+| Platform         | Optiplex 5060 Micro        |
+| Operating System | Ubuntu Server 22.04        |
+| Processor        | Intel Core i5-8500T 2.1GHz |
+| RAM              | 16GB DDR4 RAM              |
+| Internal Storage | 256GB M.2 NVMe SSD         |
+| External Storage | 2TB USB 2.0 HDD            |
+| Network          | 1Gbps Ethernet port        |
+<!--}}}-->
 
 ## Prerequisites
 
