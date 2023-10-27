@@ -350,7 +350,7 @@ Click the :floppy_disk: icon to apply the changes. Then (optionally) apply the c
     - `VueTorrent`
       - Copy/paste the following code and click the `Import Settings` button
         ```json
-        {"sort_options":{"isCustomSortEnabled":true,"sort":"priority","reverse":false,"filter":null,"category":null,"tag":null,"tracker":null},"webuiSettings":{"lang":"en","darkTheme":true,"showFreeSpace":true,"showSpeedGraph":true,"showSessionStat":true,"showAlltimeStat":true,"showCurrentSpeed":true,"showTrackerFilter":false,"showSpeedInTitle":false,"deleteWithFiles":false,"title":"Global Speed","rightDrawer":false,"topPagination":false,"paginationSize":15,"dateFormat":"DD/MM/YYYY, HH:mm:ss","openSideBarOnStart":false,"showShutdownButton":false,"useBitSpeed":false,"useBinaryUnits":false,"refreshInterval":2000,"contentInterval":5000,"torrentPieceCountRenderThreshold":5000,"busyDesktopTorrentProperties":[{"name":"Status","active":true},{"name":"Size","active":true},{"name":"Progress","active":true},{"name":"DownloadSpeed","active":true},{"name":"Downloaded","active":true},{"name":"SavePath","active":false},{"name":"UploadSpeed","active":true},{"name":"Uploaded","active":true},{"name":"ETA","active":true},{"name":"Peers","active":true},{"name":"Seeds","active":true},{"name":"Ratio","active":false},{"name":"Tracker","active":false},{"name":"Category","active":true},{"name":"Tags","active":false},{"name":"AddedOn","active":false},{"name":"Availability","active":false},{"name":"LastActivity","active":false},{"name":"CompletedOn","active":false},{"name":"AmountLeft","active":false},{"name":"ContentPath","active":false},{"name":"DownloadedSession","active":false},{"name":"DownloadLimit","active":false},{"name":"DownloadPath","active":false},{"name":"Hash","active":false},{"name":"InfoHashV1","active":false},{"name":"InfoHashV2","active":false},{"name":"SeenComplete","active":false},{"name":"TimeActive","active":false},{"name":"TotalSize","active":false},{"name":"TrackersCount","active":false},{"name":"UploadedSession","active":false},{"name":"UploadLimit","active":false},{"name":"GlobalSpeed","active":false},{"name":"GlobalVolume","active":false}],"doneDesktopTorrentProperties":[{"name":"Status","active":true},{"name":"Size","active":true},{"name":"Progress","active":true},{"name":"DownloadSpeed","active":false},{"name":"Downloaded","active":false},{"name":"SavePath","active":false},{"name":"UploadSpeed","active":true},{"name":"Uploaded","active":true},{"name":"ETA","active":false},{"name":"Peers","active":true},{"name":"Seeds","active":true},{"name":"Ratio","active":true},{"name":"Tracker","active":false},{"name":"Category","active":true},{"name":"Tags","active":false},{"name":"AddedOn","active":false},{"name":"Availability","active":false},{"name":"LastActivity","active":false},{"name":"CompletedOn","active":false},{"name":"AmountLeft","active":false},{"name":"ContentPath","active":false},{"name":"DownloadedSession","active":false},{"name":"DownloadLimit","active":false},{"name":"DownloadPath","active":false},{"name":"Hash","active":false},{"name":"InfoHashV1","active":false},{"name":"InfoHashV2","active":false},{"name":"SeenComplete","active":false},{"name":"TimeActive","active":false},{"name":"TotalSize","active":false},{"name":"TrackersCount","active":false},{"name":"UploadedSession","active":false},{"name":"UploadLimit","active":false},{"name":"GlobalSpeed","active":false},{"name":"GlobalVolume","active":false}],"busyMobileCardProperties":[{"name":"Status","active":true},{"name":"Tracker","active":false},{"name":"Category","active":true},{"name":"Tags","active":false},{"name":"Size","active":true},{"name":"Progress","active":true},{"name":"ProgressBar","active":true},{"name":"Ratio","active":false},{"name":"Uploaded","active":false},{"name":"ETA","active":true},{"name":"Seeds","active":true},{"name":"Peers","active":true},{"name":"DownloadSpeed","active":true},{"name":"UploadSpeed","active":true}],"doneMobileCardProperties":[{"name":"Status","active":true},{"name":"Tracker","active":false},{"name":"Category","active":true},{"name":"Tags","active":false},{"name":"Size","active":true},{"name":"Progress","active":true},{"name":"ProgressBar","active":true},{"name":"Ratio","active":false},{"name":"Uploaded","active":false},{"name":"ETA","active":true},{"name":"Seeds","active":true},{"name":"Peers","active":true},{"name":"DownloadSpeed","active":true},{"name":"UploadSpeed","active":true}]},"authenticated":true}
+        {"sort_options":{"isCustomSortEnabled":false,"sort":"completion_on","reverse":false,"filter":null,"category":null,"tag":null,"tracker":null},"webuiSettings":{"lang":"en","darkTheme":true,"showFreeSpace":true,"showSpeedGraph":true,"showSessionStat":true,"showAlltimeStat":true,"showCurrentSpeed":true,"showTrackerFilter":false,"showSpeedInTitle":false,"deleteWithFiles":true,"title":"Global Speed","rightDrawer":false,"topPagination":false,"paginationSize":15,"dateFormat":"DD/MM/YYYY, HH:mm:ss","openSideBarOnStart":false,"showShutdownButton":false,"useBitSpeed":false,"useBinaryUnits":false,"refreshInterval":2000,"contentInterval":5000,"torrentPieceCountRenderThreshold":5000,"busyDesktopTorrentProperties":[{"name":"Status","active":true},{"name":"Category","active":true},{"name":"Size","active":true},{"name":"Progress","active":true},{"name":"DownloadSpeed","active":true},{"name":"Downloaded","active":true},{"name":"SavePath","active":false},{"name":"UploadSpeed","active":true},{"name":"Uploaded","active":false},{"name":"ETA","active":true},{"name":"Peers","active":true},{"name":"Seeds","active":true},{"name":"Ratio","active":false},{"name":"Tracker","active":true},{"name":"Tags","active":false},{"name":"AddedOn","active":false},{"name":"Availability","active":false},{"name":"LastActivity","active":false},{"name":"CompletedOn","active":false},{"name":"AmountLeft","active":false},{"name":"ContentPath","active":false},{"name":"DownloadedSession","active":false},{"name":"DownloadLimit","active":false},{"name":"DownloadPath","active":false},{"name":"Hash","active":false},{"name":"InfoHashV1","active":false},{"name":"InfoHashV2","active":false},{"name":"SeenComplete","active":false},{"name":"TimeActive","active":false},{"name":"TotalSize","active":false},{"name":"TrackersCount","active":false},{"name":"UploadedSession","active":false},{"name":"UploadLimit","active":false},{"name":"GlobalSpeed","active":false},{"name":"GlobalVolume","active":false}],"doneDesktopTorrentProperties":[{"name":"Status","active":true},{"name":"Category","active":false},{"name":"Size","active":true},{"name":"Progress","active":false},{"name":"DownloadSpeed","active":false},{"name":"Downloaded","active":false},{"name":"SavePath","active":false},{"name":"UploadSpeed","active":true},{"name":"Uploaded","active":true},{"name":"ETA","active":false},{"name":"Peers","active":true},{"name":"Seeds","active":true},{"name":"Ratio","active":true},{"name":"Tracker","active":true},{"name":"Tags","active":false},{"name":"AddedOn","active":false},{"name":"Availability","active":false},{"name":"LastActivity","active":false},{"name":"CompletedOn","active":false},{"name":"AmountLeft","active":false},{"name":"ContentPath","active":false},{"name":"DownloadedSession","active":false},{"name":"DownloadLimit","active":false},{"name":"DownloadPath","active":false},{"name":"Hash","active":false},{"name":"InfoHashV1","active":false},{"name":"InfoHashV2","active":false},{"name":"SeenComplete","active":false},{"name":"TimeActive","active":false},{"name":"TotalSize","active":false},{"name":"TrackersCount","active":false},{"name":"UploadedSession","active":false},{"name":"UploadLimit","active":false},{"name":"GlobalSpeed","active":false},{"name":"GlobalVolume","active":false}],"busyMobileCardProperties":[{"name":"Status","active":true},{"name":"Tracker","active":false},{"name":"Category","active":true},{"name":"Tags","active":false},{"name":"Size","active":true},{"name":"Progress","active":true},{"name":"ProgressBar","active":true},{"name":"Ratio","active":false},{"name":"Uploaded","active":false},{"name":"ETA","active":true},{"name":"Seeds","active":true},{"name":"Peers","active":true},{"name":"DownloadSpeed","active":true},{"name":"UploadSpeed","active":true}],"doneMobileCardProperties":[{"name":"Status","active":true},{"name":"Tracker","active":false},{"name":"Category","active":true},{"name":"Tags","active":false},{"name":"Size","active":true},{"name":"Progress","active":true},{"name":"ProgressBar","active":true},{"name":"Ratio","active":false},{"name":"Uploaded","active":false},{"name":"ETA","active":true},{"name":"Seeds","active":true},{"name":"Peers","active":true},{"name":"DownloadSpeed","active":true},{"name":"UploadSpeed","active":true}]},"authenticated":true}
         ```
 
 </details>
@@ -631,6 +631,10 @@ qBittorrent](https://trash-guides.info/Bazarr/Setup-Guide/).
         ```
       - Note: `notify_text_eval = 1` must be manually enabled in the Tautulli
         `config.ini` file to enable expressions.
+  - Changing the newsletter header
+    - Edit `${CONFIG_HOME}/tautulli/templates/recently_added.html`
+    - Search for `newsletter-header.png`
+    - Replace the line with your own image: `<img src="YOUR-IMAGE-URL-OR-PATH">`
 
 </details>
 <!-- }}} -->
@@ -799,6 +803,7 @@ sudo iptables -t mangle -F
 * [Restart host on a schedule](#restart-host-on-a-schedule)
 * [Disable Wi-Fi radio](#disable-wi-fi-radio)
 * [Useful packages](#useful-packages)
+* [SSH without password](#ssh-without-password)
 
 ### Mounting an external USB disk on host and Docker containers<!--{{{-->
 
@@ -1041,6 +1046,26 @@ sudo apt install -y
 curl -L https://bit.ly/glances | /bin/bash
 ```
 <!--}}}-->
+
+### SSH without password
+
+Configure SSH keys to connect to the server without a password.
+
+Create a key pair on the client machine. Press `<Enter>` at all prompts:
+
+```bash
+ssh-keygen
+```
+
+You now have a public and private key that you can use to authenticate. The
+next step is to place the public key on your server so that you can use
+SSH-key-based authentication to log in:
+
+```bash
+ssh-copy-id username@remote_host
+```
+
+Type `yes` and enter your password when prompted.
 
 <!--
 vim:fdm=marker
