@@ -44,40 +44,65 @@ services:
       - ${CONFIG_ROOT}/nginx/98-themepark:/etc/cont-init.d/98-themepark
     restart: unless-stopped # }}}
 
-  wireguard: # {{{
-    image: lscr.io/linuxserver/wireguard:latest
-    container_name: wireguard
+  qbittorrentvpn: # {{{
+    container_name: qbittorrentvpn
+    image: ghcr.io/hotio/qbittorrent
+    ports:
+      - "8080:8080"
+      - "8118:8118"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - UMASK=002
+      - VPN_ENABLED=true
+      - VPN_LAN_NETWORK=192.168.29.0/24
+      - VPN_CONF=wg0
+      - VPN_ADDITIONAL_PORTS
+      - PRIVOXY_ENABLED=false
+    volumes:
+      - ${CONFIG_ROOT}/qbittorrentvpn:/config
+      - ${DATA_ROOT}/torrents:/data/torrents
     cap_add:
       - NET_ADMIN
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    volumes:
-      - ${CONFIG_ROOT}/wireguard:/config
-    ports:
-      - "8080:8080" # qBittorrent WebUI
-      - "6881:6881"
-      - "6881:6881/udp"
-      - "51820:51820/udp"
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
-    restart: unless-stopped # }}}
+      - net.ipv6.conf.all.disable_ipv6=1 # }}}
 
-  qbittorrent: # {{{
-    image: lscr.io/linuxserver/qbittorrent:latest
-    container_name: qbittorrent
-    network_mode: service:wireguard
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - WEBUI_PORT=8080
-      - DOCKER_MODS=ghcr.io/gabe565/linuxserver-mod-vuetorrent
-    volumes:
-      - ${CONFIG_ROOT}/qbittorrent:/config
-      - ${DATA_ROOT}/torrents:/data/torrents
-    restart: unless-stopped # }}}
+  # wireguard: # {{{
+  #   image: lscr.io/linuxserver/wireguard:latest
+  #   container_name: wireguard
+  #   cap_add:
+  #     - NET_ADMIN
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ${CONFIG_ROOT}/wireguard:/config
+  #   ports:
+  #     - "8080:8080" # qBittorrent WebUI
+  #     - "6881:6881"
+  #     - "6881:6881/udp"
+  #     - "51820:51820/udp"
+  #   sysctls:
+  #     - net.ipv4.conf.all.src_valid_mark=1
+  #   restart: unless-stopped # }}}
+
+  # qbittorrent: # {{{
+  #   image: lscr.io/linuxserver/qbittorrent:latest
+  #   container_name: qbittorrent
+  #   network_mode: service:wireguard
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #     - WEBUI_PORT=8080
+  #     - DOCKER_MODS=ghcr.io/gabe565/linuxserver-mod-vuetorrent
+  #   volumes:
+  #     - ${CONFIG_ROOT}/qbittorrent:/config
+  #     - ${DATA_ROOT}/torrents:/data/torrents
+  #   restart: unless-stopped # }}}
 
   sabnzbd: # {{{
     image: lscr.io/linuxserver/sabnzbd:latest
