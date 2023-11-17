@@ -409,6 +409,14 @@ Radarr](https://trash-guides.info/Radarr/).
     - :ballot_box_with_check: Replace Illegal Characters
     - `Root Folders`
       - Add an entry for `/data/media/movies`
+  - `Profiles`
+    - `Quality Profiles`
+      - I set up separate profiles for 1080p and 720p
+    - `Delay Profiles`
+      - I set up a delay profile "Prefer torrent" with a Usenet delay of 2
+        minutes. An opposite configuration can be set up for torrents. Currently I have Overseerr using this tag
+    - `Release Profiles`
+      - I set up an entry with keywords to avoid (i.e. "HDR")
   - `Indexers`
     - The indexers will auto-populate once Prowlarr is set up
     - Click `Show Advanced`
@@ -845,7 +853,10 @@ sudo vim /etc/fstab
 ```
 
 ```bash
+# for NTFS
 UUID=ABCD1234 /mnt/usb ntfs defaults,noatime,nofail,umask=000 0 2
+# for ext4
+UUID=ABCD1234 /mnt/usb2 ext4 defaults,noatime,nofail 0 2
 ```
 
 4. Mount the drive and ensure it is available at the mount point.
@@ -859,6 +870,9 @@ ls /mnt/usb
 5. Set up download paths on the drive to be used by the services.
 
 ```bash
+# set permissions if necessary
+sudo chown -Rv ${USER}:${USER} /mnt/usb
+
 # create destination directories on the drive
 DATA_DIR=/mnt/usb
 sudo mkdir -pv ${DATA_DIR}/{torrents,usenet,media}/{tv,movies}
@@ -939,7 +953,7 @@ sudo vim /etc/default/hd-idle
 START_HD_IDLE=true
 
 # Uncomment and update this line to configure the idle timeout value
-HD_IDLE_OPTS="-i 0 -a /dev/disk/by-uuid/<DRIVE-UUID> -i 600"
+HD_IDLE_OPTS="-i 0 -a /dev/disk/by-uuid/<DRIVE-UUID> -i 600 -c ata -l /var/log/hd-idle.log"
 ```
 
 3. Start the `hd-idle` service.
@@ -949,6 +963,13 @@ systemctl unmask hd-idle.service
 systemctl start hd-idle
 systemctl enable hd-idle
 ```
+
+4. Read the logs
+
+```bash
+sudo vim /var/log/hd-idle.log
+```
+
 <!--}}}-->
 
 ### Mounting a network share on host and Docker containers<!--{{{-->
@@ -1076,6 +1097,20 @@ ssh-copy-id username@remote_host
 ```
 
 Type `yes` and enter your password when prompted.
+
+### Mirror a drive with rsync
+
+```bash
+# --archive, -a            archive mode is -rlptgoD (no -A,-X,-U,-N,-H)
+# --verbose, -v            increase verbosity
+# --one-file-system, -x    don't cross filesystem boundaries
+# --acls, -A               preserve ACLs (implies --perms)
+# --hard-links, -H         preserve hard links
+# --whole-file, -W         copy files whole (w/o delta-xfer algorithm)
+# --xattrs, -X             preserve extended attributes
+
+rsync -avxAHWX --progress [--dry-run] /mnt/usb/ /mnt/usb2/
+```
 
 <!--
 vim:fdm=marker
