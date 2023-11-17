@@ -69,41 +69,6 @@ services:
       - net.ipv4.conf.all.src_valid_mark=1
       - net.ipv6.conf.all.disable_ipv6=1 # }}}
 
-  # wireguard: # {{{
-  #   image: lscr.io/linuxserver/wireguard:latest
-  #   container_name: wireguard
-  #   cap_add:
-  #     - NET_ADMIN
-  #   environment:
-  #     - PUID=${PUID}
-  #     - PGID=${PGID}
-  #     - TZ=${TZ}
-  #   volumes:
-  #     - ${CONFIG_ROOT}/wireguard:/config
-  #   ports:
-  #     - "8080:8080" # qBittorrent WebUI
-  #     - "6881:6881"
-  #     - "6881:6881/udp"
-  #     - "51820:51820/udp"
-  #   sysctls:
-  #     - net.ipv4.conf.all.src_valid_mark=1
-  #   restart: unless-stopped # }}}
-
-  # qbittorrent: # {{{
-  #   image: lscr.io/linuxserver/qbittorrent:latest
-  #   container_name: qbittorrent
-  #   network_mode: service:wireguard
-  #   environment:
-  #     - PUID=${PUID}
-  #     - PGID=${PGID}
-  #     - TZ=${TZ}
-  #     - WEBUI_PORT=8080
-  #     - DOCKER_MODS=ghcr.io/gabe565/linuxserver-mod-vuetorrent
-  #   volumes:
-  #     - ${CONFIG_ROOT}/qbittorrent:/config
-  #     - ${DATA_ROOT}/torrents:/data/torrents
-  #   restart: unless-stopped # }}}
-
   sabnzbd: # {{{
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
