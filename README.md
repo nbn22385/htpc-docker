@@ -1102,6 +1102,7 @@ Type `yes` and enter your password when prompted.
 
 ```bash
 # --archive, -a            archive mode is -rlptgoD (no -A,-X,-U,-N,-H)
+# --human-readable, -h     output numbers in a human-readable format
 # --verbose, -v            increase verbosity
 # --one-file-system, -x    don't cross filesystem boundaries
 # --acls, -A               preserve ACLs (implies --perms)
@@ -1109,7 +1110,7 @@ Type `yes` and enter your password when prompted.
 # --whole-file, -W         copy files whole (w/o delta-xfer algorithm)
 # --xattrs, -X             preserve extended attributes
 
-rsync -avxAHWX --progress [--dry-run] /mnt/usb/ /mnt/usb2/
+rsync -ahvxAHWX --progress [--dry-run] /mnt/usb/ /mnt/usb2/
 ```
 
 <!--
