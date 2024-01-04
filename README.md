@@ -425,10 +425,12 @@ Radarr](https://trash-guides.info/Radarr/).
     - Click `+` and select `qBittorrent`
       - Host: **wireguard**
       - Username/Password: Use qbittorrent credentials
+      - Category: **movies**
     - Click `+` and select `SABnzbd`
       - Host: **sabnzbd**
       - Port: **8080** (even though the web interface is 8081)
       - Api Key: **SABnzbd API key from its `Config > General (Security)` page**
+      - Category: **movies**
       - :white_square_button: Remove Completed (I like to preserve SABnzbd history)
   - `Import Lists` (Optional, allows initiating downloads via the Plex Discover
     interface)
@@ -470,10 +472,13 @@ Sonarr](https://trash-guides.info/Sonarr/).
     - Click `+` and select `qBittorrent`
       - Host: **wireguard**
       - Username/Password: Use qbittorrent credentials
+      - Category: **tv**
     - Click `+` and select `SABnzbd`
       - Host: **sabnzbd**
       - Port: **8080** (even though the web interface is 8081)
       - Api Key: **SABnzbd API key from its `Config > General (Security)` page**
+      - Category: **tv**
+      - :white_square_button: Remove Completed (I like to preserve SABnzbd history)
   - `Import Lists` (Optional, allows initiating downloads via the Plex Discover
     interface)
     - Click `+` and select `Plex Watchlist`
@@ -1099,6 +1104,8 @@ ssh-copy-id username@remote_host
 Type `yes` and enter your password when prompted.
 
 ### Mirror a drive with rsync
+
+This can be useful for making clones/backups or moving to a new drive.
 
 ```bash
 # --archive, -a            archive mode is -rlptgoD (no -A,-X,-U,-N,-H)
