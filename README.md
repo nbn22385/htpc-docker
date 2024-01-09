@@ -7,6 +7,7 @@
   + [Enable remote desktop](#enable-remote-desktop)
 * [Set up directories](#set-up-directories)
 * [Set up services](#set-up-services)
+  + [Docker secrets](#docker-secrets)
   + [VPN configuration](#vpn-configuration)
   + [Start the services](#start-the-services)
   + [Access web UI for services](#access-web-ui-for-services)
@@ -199,6 +200,52 @@ Services are managed via Docker using `docker-compose`.
 **Note:** The base paths for service configuration and data are set within the
 `.env` file. Review the `.env` file and set `CONFIG_ROOT` and `DATA_ROOT` to
 your preferred paths.
+
+### Docker secrets
+
+Create the following files in a `secrets/` directory with the following values for the
+required services:
+
+1. Create a `secrets/` directory if it does not exist. This folder will be
+   ignored by git.
+
+  ```bash
+  mkdir -p secrets
+  ```
+
+2. DuckDNS
+
+Create a secret for your DuckDNS token. For more info see the
+[DuckDNS](#duckdns) section of this document.
+
+  ```bash
+  printf "DUCKDNS-TOKEN" > ./secrets/duckdns_token.txt
+  ```
+
+3. Plex
+
+Create a secret for the following Plex values.
+
+- `PLEX-USERNAME`: your Plex username.
+- `PLEX-TOKEN`: see [these
+instructions](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/)
+for finding your Plex token.
+- `PLEX-ADDRESS`: The URL of your Plex server. For example, `http://<SERVER-IP>:32400`
+
+  ```bash
+  printf "PLEX-USERNAME" > ./secrets/plex_user.txt
+  printf "PLEX-TOKEN" > ./secrets/plex_token.txt
+  printf "PLEX-ADDRESS" > ./secrets/plex_address.txt
+  ```
+
+4. Real-Debrid
+
+Create a secret for your Real-Debrid API key, which can be found
+[here](https://real-debrid.com/apitoken).
+
+  ```bash
+  printf "REAL-DEBRID-API-KEY" > ./secrets/rd_api_key.txt
+  ```
 
 ### VPN configuration<!--{{{-->
 
@@ -702,7 +749,7 @@ DuckDNS account in sync with your server's public IP address.
 1. Copy the Token from the DuckDNS account homepage
 1. Write the token to a file that will be handled by Docker Secrets:
    ```bash
-   printf "YOUR-TOKEN" > duckdns_token.secret
+   printf "YOUR-TOKEN" > secrets/duckdns_token.txt
    ```
 
 ### Nginx Proxy Manager
