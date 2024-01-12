@@ -10,6 +10,16 @@ version: "3.2"
 
 services:
 
+  uptime-kuma: # {{{
+    image: louislam/uptime-kuma:latest
+    container_name: uptime-kuma
+    volumes:
+      - ${CONFIG_ROOT}/uptime-kuma:/app/data
+      - /var/run:/var/run:rw
+    ports:
+      - "3001:3001"
+    restart: always # }}}
+
   dashy: # {{{
     image: lissy93/dashy
     container_name: dashy
@@ -49,6 +59,7 @@ services:
     ports:
       - "3000:3000"
     environment:
+      - GF_SECURITY_ALLOW_EMBEDDING=true
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/provisioning/dashboards/home.json
     volumes:
