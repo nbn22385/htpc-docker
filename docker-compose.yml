@@ -180,8 +180,6 @@ services:
       - ${DATA_ROOT}/media:/data/media
       - /pd_zurg/mnt/pd_zurg/:/torrents
     restart: unless-stopped # }}}
-    # depends_on:
-    #   - pd_zurg
 
   # jellyfin: # {{{
   #   image: lscr.io/linuxserver/jellyfin:latest
