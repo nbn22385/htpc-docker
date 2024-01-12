@@ -9,7 +9,7 @@ appConfig:
   statusCheckInterval: 0
   faviconApi: allesedv
   routingMode: history
-  enableMultiTasking: false
+  enableMultiTasking: true
   widgetsAlwaysUseProxy: false
   webSearch:
     disableWebSearch: true
@@ -51,41 +51,41 @@ pageInfo:
       target: newtab
   footerText: ''
 sections:
-  - name: Bookmarks
-    icon: fas fa-link
-    displayData:
-      sortBy: default
-      rows: 1
-      cols: 1
-      collapsed: false
-      hideForGuests: false
-    items:
-      - title: YouTube
-        icon: hl-youtube
-        url: https://www.youtube.com/feed/subscriptions
-        statusCheck: false
-      - title: Slickdeals
-        icon: https://images.crunchbase.com/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/v1483635308/ehxtud4xwxzhisqcvij4.png
-        url: http://slickdeals.net/
-        statusCheck: false
-      - title: Calendar
-        icon: hl-google-calendar
-        url: https://calendar.google.com/
-        statusCheck: false
-      - title: discgolf
-        icon: hl-reddit
-        url: https://www.reddit.com/r/discgolf
-        statusCheck: false
-      - title: usenet
-        icon: hl-reddit
-        url: https://www.reddit.com/r/usenet
-        statusCheck: false
-      - title: homelab
-        icon: hl-reddit
-        url: https://www.reddit.com/r/homelab
-        statusCheck: false
-  - name: Services
-    icon: fas fa-server
+  # - name: Bookmarks
+  #   icon: fas fa-link
+  #   displayData:
+  #     sortBy: default
+  #     rows: 1
+  #     cols: 1
+  #     collapsed: false
+  #     hideForGuests: false
+  #   items:
+  #     - title: YouTube
+  #       icon: hl-youtube
+  #       url: https://www.youtube.com/feed/subscriptions
+  #       statusCheck: false
+  #     - title: Slickdeals
+  #       icon: https://images.crunchbase.com/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/v1483635308/ehxtud4xwxzhisqcvij4.png
+  #       url: http://slickdeals.net/
+  #       statusCheck: false
+  #     - title: Calendar
+  #       icon: hl-google-calendar
+  #       url: https://calendar.google.com/
+  #       statusCheck: false
+  #     - title: discgolf
+  #       icon: hl-reddit
+  #       url: https://www.reddit.com/r/discgolf
+  #       statusCheck: false
+  #     - title: usenet
+  #       icon: hl-reddit
+  #       url: https://www.reddit.com/r/usenet
+  #       statusCheck: false
+  #     - title: homelab
+  #       icon: hl-reddit
+  #       url: https://www.reddit.com/r/homelab
+  #       statusCheck: false
+  - name: Nateflix Services
+    icon: fas fa-tv
     displayData:
       sortBy: default
       rows: 1
@@ -106,16 +106,18 @@ sections:
       - title: Sonarr
         icon: hl-sonarr
         url: http://ubuntu-server.local:8989
-      - title: SABnzbd
-        icon: hl-sabnzbd
-        url: http://ubuntu-server.local:8081
-      - title: qBittorrent
-        icon: hl-qbittorrent
-        url: http://ubuntu-server.local:8080
       - title: Prowlarr
         description: ''
         icon: hl-prowlarr
         url: http://ubuntu-server.local:9696
+      - title: qBittorrent
+        icon: hl-qbittorrent
+        # Settings > Web UI > disable clickjacking+CSRF
+        url: http://ubuntu-server.local:8080
+      - title: SABnzbd
+        icon: hl-sabnzbd
+        # Config > Special > disable x_frame_options
+        url: http://ubuntu-server.local:8081
       - title: Bazarr
         description: ''
         icon: hl-bazarr
@@ -124,7 +126,19 @@ sections:
         description: ''
         icon: hl-tautulli
         url: http://ubuntu-server.local:8181
-      # monitoring
+      - title: Jellyfin
+        description: ''
+        icon: hl-jellyfin
+        url: http://ubuntu-server.local:8096
+  - name: Monitoring
+    icon: fas fa-server
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
       - title: Grafana
         icon: hl-grafana
         url: http://ubuntu-server.local:3000
@@ -134,69 +148,72 @@ sections:
       - title: cAdvisor
         icon: hl-cadvisor
         url: http://ubuntu-server.local:9091
+      - title: Node-exporter
+        icon: hl-node-red
+        url: http://ubuntu-server.local:9100
       - title: NPM
         icon: hl-nginx-proxy-manager
         url: http://ubuntu-server.local:81
-  - name: CPU
-    icon: fas fa-microchip
-    displayData:
-      sortBy: default
-      rows: 2
-      cols: 2
-      collapsed: true
-      hideForGuests: false
-    widgets:
-      - type: gl-current-cpu
-        options:
-          hostname: http://192.168.29.200:61208
-      - type: gl-cpu-history
-        options:
-          hostname: http://192.168.29.200:61208
-          limit: 60
-  - name: Memory
-    icon: fas fa-memory
-    displayData:
-      sortBy: default
-      rows: 2
-      cols: 2
-      collapsed: true
-      hideForGuests: false
-    widgets:
-      - type: gl-current-mem
-        options:
-          hostname: http://192.168.29.200:61208
-      - type: gl-mem-history
-        options:
-          hostname: http://192.168.29.200:61208
-          limit: 80
-  - name: Network
-    icon: fas fa-network-wired
-    displayData:
-      sortBy: default
-      rows: 2
-      cols: 2
-      collapsed: true
-      hideForGuests: false
-    widgets:
-      - type: gl-network-interfaces
-        options:
-          hostname: http://192.168.29.200:61208
-      - type: gl-network-traffic
-        options:
-          hostname: http://192.168.29.200:61208
-          limit: 500
-  - name: Disk
-    icon: fas fa-database
-    displayData:
-      sortBy: default
-      rows: 2
-      cols: 2
-      collapsed: true
-      hideForGuests: false
-    widgets:
-      - type: gl-disk-space
-        options:
-          hostname: http://192.168.29.200:61208
-      - type: gl-disk-io
-        options:
-          hostname: http://192.168.29.200:61208
+  # - name: CPU
+  #   icon: fas fa-microchip
+  #   displayData:
+  #     sortBy: default
+  #     rows: 2
+  #     cols: 2
+  #     collapsed: true
+  #     hideForGuests: false
+  #   widgets:
+  #     - type: gl-current-cpu
+  #       options:
+  #         hostname: http://192.168.29.200:61208
+  #     - type: gl-cpu-history
+  #       options:
+  #         hostname: http://192.168.29.200:61208
+  #         limit: 60
+  # - name: Memory
+  #   icon: fas fa-memory
+  #   displayData:
+  #     sortBy: default
+  #     rows: 2
+  #     cols: 2
+  #     collapsed: true
+  #     hideForGuests: false
+  #   widgets:
+  #     - type: gl-current-mem
+  #       options:
+  #         hostname: http://192.168.29.200:61208
+  #     - type: gl-mem-history
+  #       options:
+  #         hostname: http://192.168.29.200:61208
+  #         limit: 80
+  # - name: Network
+  #   icon: fas fa-network-wired
+  #   displayData:
+  #     sortBy: default
+  #     rows: 2
+  #     cols: 2
+  #     collapsed: true
+  #     hideForGuests: false
+  #   widgets:
+  #     - type: gl-network-interfaces
+  #       options:
+  #         hostname: http://192.168.29.200:61208
+  #     - type: gl-network-traffic
+  #       options:
+  #         hostname: http://192.168.29.200:61208
+  #         limit: 500
+  # - name: Disk
+  #   icon: fas fa-database
+  #   displayData:
+  #     sortBy: default
+  #     rows: 2
+  #     cols: 2
+  #     collapsed: true
+  #     hideForGuests: false
+  #   widgets:
+  #     - type: gl-disk-space
+  #       options:
+  #         hostname: http://192.168.29.200:61208
+  #     - type: gl-disk-io
+  #       options:
+  #         hostname: http://192.168.29.200:61208
