@@ -11,7 +11,11 @@ secrets: # {{{
   plex_token:
     file: ./secrets/plex_token.txt
   plex_address:
-    file: ./secrets/plex_address.txt # }}}
+    file: ./secrets/plex_address.txt
+  seerr_api_key:
+    file: ./secrets/seerr_api_key.txt
+  seerr_address:
+    file: ./secrets/seerr_address.txt # }}}
 
 include: # {{{
   - monitoring/docker-compose.yml # }}}
@@ -39,7 +43,7 @@ services:
         # - ZURG_VERSION=v0.9.2-hotfix.4
       - ZURG_UPDATE=true
       - PLEX_REFRESH=true
-      - PLEX_MOUNT_DIR=/pd_zurg
+      - PLEX_MOUNT_DIR=/torrents
         ## Rclone Required Settings
       - RCLONE_MOUNT_NAME=pd_zurg
         ## Rclone Optional Settings - See rclone docs for full list
@@ -66,8 +70,8 @@ services:
         ## Plex Debrid Optional Settings
       - PD_UPDATE=true
       - SHOW_MENU=false
-        # - SEERR_API_KEY=
-        # - SEERR_ADDRESS=
+        # - SEERR_API_KEY=SECRET
+        # - SEERR_ADDRESS=SECRET
         ## Special Features
         # - AUTO_UPDATE_INTERVAL=12
         # - DUPLICATE_CLEANUP=true
@@ -84,10 +88,12 @@ services:
       - apparmor:unconfined
       - no-new-privileges
     secrets:
-      - rd_api_key
-      - plex_user
-      - plex_token
       - plex_address
+      - plex_token
+      - plex_user
+      - rd_api_key
+      - seerr_address
+      - seerr_api_key
     restart: unless-stopped # }}}
 
   duckdns: # {{{
