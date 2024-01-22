@@ -1120,6 +1120,7 @@ tar xf lazygit.tar.gz lazygit
 sudo install lazygit /usr/local/bin
 
 sudo apt install -y
+  avahi-daemon
   unzip
   ripgrip
   fd-find
