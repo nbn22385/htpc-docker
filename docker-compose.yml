@@ -94,6 +94,8 @@ services:
       - rd_api_key
       - seerr_address
       - seerr_api_key
+    healthcheck:
+      interval: 10s
     restart: unless-stopped # }}}
 
   duckdns: # {{{
@@ -185,6 +187,9 @@ services:
       - ${CONFIG_ROOT}/plex:/config
       - ${DATA_ROOT}/media:/data/media
       - /pd_zurg/mnt/pd_zurg/:/torrents
+    depends_on:
+      pd_zurg:
+        condition: service_healthy
     restart: unless-stopped # }}}
 
   # jellyfin: # {{{
