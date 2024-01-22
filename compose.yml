@@ -18,7 +18,7 @@ secrets: # {{{
     file: ./secrets/seerr_address.txt # }}}
 
 include: # {{{
-  - monitoring/docker-compose.yml # }}}
+  - monitoring/compose.yml # }}}
 
 services:
 
