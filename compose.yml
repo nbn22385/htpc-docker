@@ -22,6 +22,26 @@ include: # {{{
 
 services:
 
+  plex: # {{{
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - VERSION=docker
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:plex
+      - TP_THEME=${THEME}
+    volumes:
+      - ${CONFIG_ROOT}/plex:/config
+      - ${DATA_ROOT}/media:/data/media
+      - /pd_zurg/mnt/pd_zurg/:/torrents
+    depends_on:
+      pd_zurg:
+        condition: service_healthy
+    restart: unless-stopped # }}}
+
   pd_zurg: # {{{
     image: iampuid0/pd_zurg:latest
     container_name: pd_zurg
@@ -37,7 +57,7 @@ services:
       - TZ=${TZ}
         ## Zurg Required Settings
       - ZURG_ENABLED=true
-        # - RD_API_KEY=SECRET
+        # - RD_API_KEY=<SECRET>
         ## Zurg Optional Settings
         # - ZURG_LOG_LEVEL=DEBUG
         # - ZURG_VERSION=v0.9.2-hotfix.4
@@ -61,17 +81,17 @@ services:
         ## Plex Debrid Required Settings
       - PD_ENABLED=true
         ## To utilize plex_debrid with Plex, the following environment variables are required
-        # - PLEX_USER=SECRET
-        # - PLEX_TOKEN=SECRET
-        # - PLEX_ADDRESS=SECRET
+        # - PLEX_USER=<SECRET>
+        # - PLEX_TOKEN=<SECRET>
+        # - PLEX_ADDRESS=<SECRET>
         ## To utilize plex_debrid with Jellyfin, the following environment variables are required - Note that plex_debrid will require addtional setup befor use with Jellyfin
         # - JF_ADDRESS
         # - JF_API_KEY
         ## Plex Debrid Optional Settings
       - PD_UPDATE=true
       - SHOW_MENU=false
-        # - SEERR_API_KEY=SECRET
-        # - SEERR_ADDRESS=SECRET
+        # - SEERR_API_KEY=<SECRET>
+        # - SEERR_ADDRESS=<SECRET>
         ## Special Features
         # - AUTO_UPDATE_INTERVAL=12
         # - DUPLICATE_CLEANUP=true
@@ -170,26 +190,6 @@ services:
       - ${DATA_ROOT}/usenet:/data/usenet
     ports:
       - "8081:8080" # web UI
-    restart: unless-stopped # }}}
-
-  plex: # {{{
-    image: lscr.io/linuxserver/plex:latest
-    container_name: plex
-    network_mode: host
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - VERSION=docker
-      - DOCKER_MODS=ghcr.io/gilbn/theme.park:plex
-      - TP_THEME=${THEME}
-    volumes:
-      - ${CONFIG_ROOT}/plex:/config
-      - ${DATA_ROOT}/media:/data/media
-      - /pd_zurg/mnt/pd_zurg/:/torrents
-    depends_on:
-      pd_zurg:
-        condition: service_healthy
     restart: unless-stopped # }}}
 
   # jellyfin: # {{{
